@@ -8,7 +8,7 @@ import { StaticRouter } from 'react-router-dom'
 
 import App from '../client/components/App'
 
-const APP_PORT = process.env.APP_PORT || 1234
+const PORT = process.env.PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
 
 const app = express()
@@ -42,6 +42,7 @@ app.use('*', (req, res) => {
     </StaticRouter>
   )
 
+  console.log(appMarkup)
   const documentWithAppMarkup = documentMarkup.replace(
     '<div id="app"></div>',
     `<div id="app">${appMarkup}</div>`
@@ -52,6 +53,6 @@ app.use('*', (req, res) => {
   return res.send(documentWithAppMarkup)
 })
 
-app.listen(APP_PORT, () => {
-  console.log(`Server listening on port ${APP_PORT}`)
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
 })
