@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import fs from 'fs'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
 
 import App from '../client/App'
 
@@ -35,7 +36,13 @@ app.use('*', (req, res) => {
   const documentMarkup = fs.readFileSync(path.resolve(__dirname, '../../dist/client/index.html'), {
     encoding: 'utf8',
   })
-  const appMarkup = ReactDOMServer.renderToString(<App />)
+  const appMarkup = ReactDOMServer.renderToString(
+    <StaticRouter location={req.originalUrl}>
+      <App />
+    </StaticRouter>
+  )
+
+  console.log(appMarkup)
   const documentWithAppMarkup = documentMarkup.replace(
     '<div id="app"></div>',
     `<div id="app">${appMarkup}</div>`
