@@ -1,0 +1,28 @@
+{
+  "env": {
+    "server": {
+      "presets": ["@babel/preset-react"],
+      "plugins": [
+        [
+          "module-resolver",
+          {
+            "root": ["./src/server"]
+          }
+        ]
+      ]
+    },
+    "client": {
+      "presets": ["@babel/preset-react"],
+      "plugins": [
+        [
+          "module-resolver",
+          {
+            "root": ["./src/client"]
+          }
+        ]
+      ]
+    }
+  },
+  "presets": [["@babel/preset-env"]],
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+}
