@@ -1,6 +1,11 @@
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
+import fs from 'fs'
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+
+import App from '../client/App'
 
 const APP_PORT = process.env.APP_PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
@@ -27,7 +32,18 @@ app.use('/robots.txt', (req, res) => {
 })
 
 app.use('*', (req, res) => {
-  res.sendFile(APP_PATH + '/index.html')
+  const documentMarkup = fs.readFileSync(path.resolve(__dirname, '../../dist/client/index.html'), {
+    encoding: 'utf8',
+  })
+  const appMarkup = ReactDOMServer.renderToString(<App />)
+  const documentWithAppMarkup = documentMarkup.replace(
+    '<div id="app"></div>',
+    `<div id="app">${appMarkup}</div>`
+  )
+
+  res.contentType('text/html')
+  res.status(200)
+  return res.send(documentWithAppMarkup)
 })
 
 app.listen(APP_PORT, () => {
