@@ -10,14 +10,17 @@
     "minify:js": "uglifyjs dist/client/js/app.js --compress --mangle -o dist/client/js/app.js",
     "build:client:prepare": "mkdir -p dist/client/js && cp src/client/index.html dist/client/index.html && cp -R src/client/assets/* dist/client/",
     "build:client:js": "BABEL_ENV=client browserify -v -t babelify -t envify src/client/client.js -o dist/client/js/app.js",
-    "build:client": "run-s -y clean:client build:client:prepare build:client:js minify:js",
+    "build:client": "run-s -y clean:client build:client:prepare build:client:js build:client:babel minify:js",
+    "build:client:babel": "BABEL_ENV=client babel --source-maps false --out-dir dist/client/components src/client/components",
     "build:server:babel": "BABEL_ENV=server babel --source-maps false --out-dir dist/server src/server",
     "watch:client:js": "BABEL_ENV=client watchify --debug -v -t babelify -t envify src/client/client.js -o dist/client/js/app.js",
     "watch:server": "BABEL_ENV=server nodemon --exec babel-node --watch src/server --watch src/client src/server/server.js",
     "build:server": "run-s -y clean:server build:server:babel",
+    "build": "run-p -y build:server build:client",
     "dev:client": "run-s -y clean:client build:client:prepare watch:client:js",
     "dev:server": "sleep 5; run-s -y clean:server watch:server",
-    "watch": "run-p -y dev:client dev:server"
+    "watch": "run-p -y dev:client dev:server",
+    "start": "NODE_ENV=production yarn run build && set -a ; . ./.env ; babel-node dist/server/server.js"
   },
   "repository": "git+https://github.com/liekki/tsoha-ravintolat.git",
   "author": "Matti Vakkilainen <matti.vakkilainen@helsinki.fi>",
@@ -35,6 +38,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "babelify": "^10.0.0",
     "body-parser": "^1.19.0",
+    "browserify": "^17.0.0",
     "envify": "^4.1.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
@@ -53,5 +57,8 @@
   "devDependencies": {
     "@babel/polyfill": "^7.12.1",
     "react": "^17.0.1"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

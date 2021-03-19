@@ -6,7 +6,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 
-import App from '../client/App'
+import App from '../client/components/App'
 
 const APP_PORT = process.env.APP_PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
@@ -42,7 +42,6 @@ app.use('*', (req, res) => {
     </StaticRouter>
   )
 
-  console.log(appMarkup)
   const documentWithAppMarkup = documentMarkup.replace(
     '<div id="app"></div>',
     `<div id="app">${appMarkup}</div>`
