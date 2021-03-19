@@ -1,6 +1,7 @@
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
+import compression from 'compression'
 import fs from 'fs'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
 
 const app = express()
+
+app.use(compression({ threshold: 0 }))
 
 app.use(
   '/static',
