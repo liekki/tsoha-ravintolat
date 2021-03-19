@@ -20,7 +20,7 @@
     "dev:client": "run-s -y clean:client build:client:prepare watch:client:js",
     "dev:server": "sleep 5; run-s -y clean:server watch:server",
     "watch": "run-p -y dev:client dev:server",
-    "start": "NODE_ENV=production yarn run build && set -a ; . ./.env ; babel-node dist/server/server.js"
+    "start": "NODE_ENV=production yarn run build && babel-node dist/server/server.js"
   },
   "repository": "git+https://github.com/liekki/tsoha-ravintolat.git",
   "author": "Matti Vakkilainen <matti.vakkilainen@helsinki.fi>",
