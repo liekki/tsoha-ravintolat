@@ -42,7 +42,6 @@ app.use('*', (req, res) => {
     </StaticRouter>
   )
 
-  console.log(appMarkup)
   const documentWithAppMarkup = documentMarkup.replace(
     '<div id="app"></div>',
     `<div id="app">${appMarkup}</div>`
