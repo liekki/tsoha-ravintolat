@@ -4,11 +4,9 @@ import * as types from '../constants/action-types'
 import { register } from '../api/user'
 
 function* sendRegisterRequest(action) {
-  console.log('we got sum stuff', action)
   const { user, password } = action
   try {
     const response = yield call(register, user, password)
-    console.log(response)
     if (!response.error) {
       yield put({ type: types.USER_REGISTER_SUCCESS, response: response.message })
     } else {

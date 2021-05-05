@@ -13,17 +13,17 @@ export const isServer = !(
   window.document.createElement
 )
 
-export const getHistory = (url) => (isServer ? createMemoryHistory() : createBrowserHistory())
+export const history = isServer ? createMemoryHistory() : createBrowserHistory()
 
 export default function configureStore(preloadedState, url) {
   const sagaMiddleware = createSagaMiddleware()
 
   const store = createStore(
-    createRootReducer(getHistory(url)),
+    createRootReducer(history),
     preloadedState,
     isServer
-      ? compose(applyMiddleware(sagaMiddleware, routerMiddleware(getHistory(url))))
-      : composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware(getHistory(url))))
+      ? compose(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
+      : composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
   )
 
   if (!isServer) {

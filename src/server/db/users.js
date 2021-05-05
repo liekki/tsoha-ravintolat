@@ -14,3 +14,8 @@ export async function getUserByUsername(username) {
   const result = await query(`SELECT * FROM users WHERE username = $1`, [username])
   return result.rows[0]
 }
+
+export async function getUserById(id) {
+  const result = await query(`SELECT * FROM users WHERE id = $1`, [id])
+  return result.rows[0]
+}

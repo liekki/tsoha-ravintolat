@@ -9,12 +9,10 @@ const Register = () => {
   const dispatch = useDispatch()
   const state = useSelector((state) => state.user)
 
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, watch, errors } = useForm('register')
   const onErrors = (errors) => console.error(errors)
   const handleRegistration = (data) => {
     dispatch(registerAction(data.username, data.password))
-
-    console.log(data)
   }
 
   const password = useRef({})

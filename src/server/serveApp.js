@@ -12,7 +12,12 @@ export default (req, res) => {
   const documentMarkup = fs.readFileSync(path.resolve(__dirname, '../../dist/client/index.html'), {
     encoding: 'utf8',
   })
-  const store = configureStore({}, req.url)
+  const partialState = {
+    user: {
+      identity: req.user || null,
+    },
+  }
+  const store = configureStore(partialState, req.url)
 
   const appMarkup = ReactDOMServer.renderToString(
     <Provider store={store}>

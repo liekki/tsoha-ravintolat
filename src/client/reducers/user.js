@@ -15,6 +15,22 @@ const user = (state = initialState.user, action) => {
         loading: false,
         msg: action.response,
       }
+
+    case actionTypes.USER_LOGIN:
+      return {
+        ...state,
+        loading: true,
+      }
+    case actionTypes.USER_LOGIN_PROFILE_SUCCESS:
+      return {
+        ...state,
+        identity: action.response,
+      }
+    case actionTypes.USER_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        identity: null,
+      }
     case actionTypes.LOCATION_CHANGE:
       return {
         ...state,

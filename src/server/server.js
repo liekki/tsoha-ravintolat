@@ -1,18 +1,22 @@
 import express from 'express'
 import compression from 'compression'
 import path from 'path'
+import cookieParser from 'cookie-parser'
 
 import serveApp from './serveApp'
 import { hashPasswordAsync, checkHashedPasswordAsync } from './security'
+import { checkAccess, addUserToRequest } from './api'
 
 import * as users from './db/users'
 
 const PORT = process.env.PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
+const COOKIE_SECRET = process.env.COOKIE_SECRET || 'dev'
 
 const app = express()
 
 app.use(compression({ threshold: 0 }))
+app.use(cookieParser(COOKIE_SECRET))
 
 app.use(
   '/static',
@@ -33,20 +37,42 @@ app.use('/robots.txt', (req, res) => {
   res.type('text/plain').status(200).send('User-Agent: *\nDisallow: /api')
 })
 
+app.use('/', addUserToRequest)
+
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body
+
   const user = await users.getUserByUsername(username)
   if (user) {
     const validPassword = await checkHashedPasswordAsync(password, user.password)
+    console.log(validPassword)
     if (validPassword) {
       const session = { userId: user.id }
       res.cookie('session', JSON.stringify(session), { httpOnly: true, signed: true })
       res.status(200).json({ message: 'Kirjautuminen onnistui' })
+    } else {
+      res.status(401).json({ error: 'Kirjautuminen epäonnistui' })
     }
   } else {
-    res.status(401).json({ message: 'Kirjautuminen epäonnistui' })
+    res.status(401).json({ error: 'Kirjautuminen epäonnistui' })
   }
 })
+
+app.post('/api/logout', (req, res) => {
+  res.clearCookie('session', { httpOnly: true, signed: true })
+  res.status(200).json({ message: 'Uloskirjautuminen onnistui' })
+})
+
+app.get(
+  '/api/profile',
+  checkAccess((req) => console.log(req) || !!req.user),
+  (req, res) => {
+    res.status(200).json({
+      ...req.user,
+      password: null,
+    })
+  }
+)
 
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body
