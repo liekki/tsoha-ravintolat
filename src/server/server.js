@@ -39,16 +39,28 @@ app.use('*', (req, res) => {
   const documentMarkup = fs.readFileSync(path.resolve(__dirname, '../../dist/client/index.html'), {
     encoding: 'utf8',
   })
+  const store = configureStore({}, req.url)
+
   const appMarkup = ReactDOMServer.renderToString(
-    <StaticRouter location={req.originalUrl}>
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.originalUrl}>
+        <App />
+      </StaticRouter>
+    </Provider>
   )
 
-  const documentWithAppMarkup = documentMarkup.replace(
-    '<div id="app"></div>',
-    `<div id="app">${appMarkup}</div>`
-  )
+  const preloadedState = store.getState()
+
+  const documentWithAppMarkup = documentMarkup
+    .replace('%APP%', `<div id="app">${appMarkup}</div>`)
+    .replace(
+      '%STATE%',
+      `
+    <script type="text/javascript">
+      window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+    </script>
+  `
+    )
 
   res.contentType('text/html')
   res.status(200)

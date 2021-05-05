@@ -1,5 +1,7 @@
 export default {
   user: {
-    logged_in: false,
+    identity: null,
+    loading: false,
+    msg: '',
   },
 }
