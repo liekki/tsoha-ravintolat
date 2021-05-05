@@ -1,16 +1,9 @@
 import express from 'express'
-import path from 'path'
-import bodyParser from 'body-parser'
 import compression from 'compression'
-import fs from 'fs'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import { hashPasswordAsync, checkHashedPasswordAsync } from './security'
-import { StaticRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import path from 'path'
 
-import configureStore from '../client/store'
-import App from '../client/components/App'
+import serveApp from './serveApp'
+import { hashPasswordAsync, checkHashedPasswordAsync } from './security'
 
 import * as users from './db/users'
 
@@ -40,7 +33,22 @@ app.use('/robots.txt', (req, res) => {
   res.type('text/plain').status(200).send('User-Agent: *\nDisallow: /api')
 })
 
-app.post('/register', async (req, res) => {
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body
+  const user = await users.getUserByUsername(username)
+  if (user) {
+    const validPassword = await checkHashedPasswordAsync(password, user.password)
+    if (validPassword) {
+      const session = { userId: user.id }
+      res.cookie('session', JSON.stringify(session), { httpOnly: true, signed: true })
+      res.status(200).json({ message: 'Kirjautuminen onnistui' })
+    }
+  } else {
+    res.status(401).json({ message: 'Kirjautuminen epäonnistui' })
+  }
+})
+
+app.post('/api/register', async (req, res) => {
   const { username, password } = req.body
 
   const usernameTaken = await users.getUserByUsername(username)
@@ -61,37 +69,7 @@ app.post('/register', async (req, res) => {
   }
 })
 
-app.use('*', (req, res) => {
-  const documentMarkup = fs.readFileSync(path.resolve(__dirname, '../../dist/client/index.html'), {
-    encoding: 'utf8',
-  })
-  const store = configureStore({}, req.url)
-
-  const appMarkup = ReactDOMServer.renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.originalUrl}>
-        <App />
-      </StaticRouter>
-    </Provider>
-  )
-
-  const preloadedState = store.getState()
-
-  const documentWithAppMarkup = documentMarkup
-    .replace('%APP%', `<div id="app">${appMarkup}</div>`)
-    .replace(
-      '%STATE%',
-      `
-    <script type="text/javascript">
-      window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-    </script>
-  `
-    )
-
-  res.contentType('text/html')
-  res.status(200)
-  return res.send(documentWithAppMarkup)
-})
+app.use('*', serveApp)
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
