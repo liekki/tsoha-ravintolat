@@ -5,9 +5,14 @@ import compression from 'compression'
 import fs from 'fs'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import { hashPasswordAsync, checkHashedPasswordAsync } from './security'
 import { StaticRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
+import configureStore from '../client/store'
 import App from '../client/components/App'
+
+import * as users from './db/users'
 
 const PORT = process.env.PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
@@ -28,11 +33,32 @@ app.use(
   })
 )
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.use('/robots.txt', (req, res) => {
   res.type('text/plain').status(200).send('User-Agent: *\nDisallow: /api')
+})
+
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body
+
+  const usernameTaken = await users.getUserByUsername(username)
+
+  if (usernameTaken) {
+    res.status(400).send({ error: 'Rekisteröinti epäonnistui, käyttäjätunnus on jo käytössä' })
+  } else {
+    try {
+      const user = await users.addUser({
+        username,
+        password: await hashPasswordAsync(password),
+      })
+      res.status(200).send({ message: 'Rekisteröinti onnistui, voit kirjautua sisään' })
+    } catch (err) {
+      res.status(500).send({ error: 'Rekisteröinti epäonnistui' })
+      console.log('error', err)
+    }
+  }
 })
 
 app.use('*', (req, res) => {
