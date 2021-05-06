@@ -3,6 +3,7 @@
     "server": {
       "presets": ["@babel/preset-react"],
       "plugins": [
+        "babel-plugin-styled-components",
         [
           "module-resolver",
           {
@@ -14,6 +15,7 @@
     "client": {
       "presets": ["@babel/preset-react"],
       "plugins": [
+        "babel-plugin-styled-components",
         [
           "module-resolver",
           {
@@ -24,5 +26,5 @@
     }
   },
   "presets": [["@babel/preset-env"]],
-  "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+  "plugins": ["babel-plugin-styled-components", "@babel/plugin-proposal-object-rest-spread"]
 }

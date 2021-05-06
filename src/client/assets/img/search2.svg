@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>search</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="search" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M8.527,0 C13.24,0 17.055,3.815 17.055,8.527 C17.055,10.425 16.436,12.177 15.389,13.593 L19.633,17.836 C20.09,18.293 20.12,19.025 19.724,19.528 L19.633,19.633 C19.131,20.123 18.326,20.123 17.836,19.633 L13.593,15.389 C12.177,16.436 10.425,17.055 8.527,17.055 C3.815,17.055 0,13.24 0,8.527 C0,3.815 3.815,0 8.527,0 Z M8.527,2.543 C5.226,2.543 2.531,5.226 2.531,8.539 C2.531,11.84 5.226,14.535 8.527,14.535 C11.829,14.535 14.523,11.84 14.523,8.539 C14.523,5.238 11.829,2.543 8.527,2.543 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>
