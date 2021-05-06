@@ -48,7 +48,11 @@ app.post('/api/login', async (req, res) => {
     console.log(validPassword)
     if (validPassword) {
       const session = { userId: user.id }
-      res.cookie('session', JSON.stringify(session), { httpOnly: true, signed: true })
+      res.cookie('session', JSON.stringify(session), {
+        httpOnly: true,
+        signed: true,
+        sameSite: true,
+      })
       res.status(200).json({ message: 'Kirjautuminen onnistui' })
     } else {
       res.status(401).json({ error: 'Kirjautuminen epäonnistui' })
