@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector, useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useSelector } from 'react-redux'
 
 import * as restaurant from '../api/restaurant'
-import { addRestaurantAction } from '../actions/restaurant'
+import * as schema from '../../shared/schema'
 
 import {
   Form,
@@ -22,23 +22,25 @@ import {
   Submit,
 } from './Styles'
 
-import * as schema from '../../shared/schema'
-
-const FormAddRestaurant = () => {
-  const dispatch = useDispatch()
-  const state = useSelector((state) => state.user)
-
+const FormRestaurant = ({ onSubmit, values }) => {
   const [features, setFeatures] = useState([])
+  const csrfToken = useSelector((state) => state.user.csrfToken)
 
   useEffect(async () => {
     const features = await restaurant.features()
     setFeatures(features?.features)
+
+    setValue('csrf_token', csrfToken, { shouldValidate: false })
+    if (values) {
+      reset(values)
+    }
   }, [])
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     reset,
   } = useForm({
     resolver: yupResolver(schema.restaurant),
@@ -46,13 +48,12 @@ const FormAddRestaurant = () => {
 
   const onErrors = (errors) => console.error(errors)
   const handleForm = (data) => {
-    window.scrollTo(0, 0)
-    reset()
-    dispatch(addRestaurantAction(data))
+    onSubmit(data, reset)
   }
 
   return (
     <Form method="post" action="" onSubmit={handleSubmit(handleForm, onErrors)}>
+      <input type="hidden" {...register('csrf_token')} />
       <FormField>
         <FormFieldLabel htmlFor="name">Ravintolan nimi</FormFieldLabel>
         <FormFieldInput id="name" {...register('name')}></FormFieldInput>
@@ -108,4 +109,4 @@ const FormAddRestaurant = () => {
   )
 }
 
-export default FormAddRestaurant
+export default FormRestaurant
