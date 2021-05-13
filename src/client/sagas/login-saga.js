@@ -5,12 +5,16 @@ import { login, logout, profile } from '../api/user'
 import { history } from '../store'
 
 function* sendLoginRequest(action) {
-  const { user, password } = action
+  const { payload } = action
   try {
-    const response = yield call(login, user, password)
+    const response = yield call(login, payload)
     if (!response.error) {
       history.push('/')
-      yield put({ type: types.USER_LOGIN_SUCCESS, message: response.message })
+      yield put({
+        type: types.USER_LOGIN_SUCCESS,
+        message: response.message,
+        csrfToken: response.csrfToken,
+      })
     } else {
       yield put({ type: types.USER_LOGIN_ERROR, message: response.error })
     }

@@ -16,15 +16,14 @@ export function register(username, password) {
   }).then((response) => response.json())
 }
 
-export function login(username, password) {
+export function login(payload) {
   return fetch(`${API_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username,
-      password,
+      payload,
     }),
   }).then((response) => response.json())
 }

@@ -48,15 +48,15 @@ app.use('/', addUserToRequest)
 app.use('/', initializeSession)
 
 app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body
+  const { payload } = req.body
 
-  const user = await users.getUserByUsername(username)
+  const user = await users.getUserByUsername(payload.username)
   if (user) {
-    const validPassword = await checkHashedPasswordAsync(password, user.password)
+    const validPassword = await checkHashedPasswordAsync(payload.password, user.password)
     console.log(validPassword)
     if (validPassword) {
-      const session = { userId: user.id }
-      res.cookie('session', JSON.stringify(session), {
+      const session = JSON.parse(req.signedCookies.session)
+      res.cookie('session', JSON.stringify({ ...session, userId: user.id }), {
         httpOnly: true,
         signed: true,
         sameSite: true,
@@ -78,6 +78,7 @@ app.post('/api/logout', (req, res) => {
 app.post(
   '/api/restaurant/add',
   checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
   async (req, res) => {
     const { payload } = req.body
 
@@ -85,9 +86,9 @@ app.post(
     if (isValid) {
       try {
         const restaurant = await restaurants.addRestaurant(payload)
-        res.status(200).send({ message: 'Ravintolan lisääminen onnistui' })
+        res.status(200).json({ message: 'Ravintolan lisääminen onnistui' })
       } catch (err) {
-        res.status(500).send({ error: 'Ravintolan lisääminen epäonnistui' })
+        res.status(500).json({ error: 'Ravintolan lisääminen epäonnistui' })
       }
     } else {
       res.status(400).json({ error: 'Invalid restaurant' })
@@ -164,16 +165,16 @@ app.post('/api/register', async (req, res) => {
   const usernameTaken = await users.getUserByUsername(username)
 
   if (usernameTaken) {
-    res.status(400).send({ error: 'Rekisteröinti epäonnistui, käyttäjätunnus on jo käytössä' })
+    res.status(400).json({ error: 'Rekisteröinti epäonnistui, käyttäjätunnus on jo käytössä' })
   } else {
     try {
       const user = await users.addUser({
         username,
         password: await hashPasswordAsync(password),
       })
-      res.status(200).send({ message: 'Rekisteröinti onnistui, voit kirjautua sisään' })
+      res.status(200).json({ message: 'Rekisteröinti onnistui, voit kirjautua sisään' })
     } catch (err) {
-      res.status(500).send({ error: 'Rekisteröinti epäonnistui' })
+      res.status(500).json({ error: 'Rekisteröinti epäonnistui' })
       console.log('error', err)
     }
   }

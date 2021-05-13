@@ -7,6 +7,8 @@ import * as yup from 'yup'
 
 import { loginAction } from '../actions/user'
 
+import { Section, Form, FormField, FormFieldLabel, FormFieldInput, Submit } from './Styles'
+
 const schema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string(),
@@ -20,36 +22,51 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   })
+  console.log(state)
+  setValue('csrf_token', state.csrfToken, { shouldValidate: false })
   const onErrors = (errors) => console.error(errors)
   const handleLogin = (data) => {
-    dispatch(loginAction(data.username, data.password))
+    dispatch(loginAction(data))
   }
   return (
     <>
-      <h2>Kirjaudu sisään</h2>
-
-      <p>
-        Jos sinulla ei ole tunnusta, voit{' '}
-        <Link to="/register" exact>
-          rekisteröityä
-        </Link>
-      </p>
-
-      {state.msg && <p>{state.msg}</p>}
-
-      <form method="post" action="/api/login" onSubmit={handleSubmit(handleLogin, onErrors)}>
-        Käyttäjätunnus:
-        <input {...register('username')} />
-        {errors.username && <p>{errors.username.message}</p>}
-        <br />
-        Salasana:
-        <input type="password" {...register('password')} />
-        {errors.password && <p>{errors.password.message}</p>}
-        <input name="submit" type="submit" value="Kirjaudu" />
-      </form>
+      <Section>
+        <div>
+          <h1>Kirjaudu sisään!</h1>
+        </div>
+      </Section>
+      <Section>
+        <div>
+          <Form method="post" action="/api/login" onSubmit={handleSubmit(handleLogin, onErrors)}>
+            <input type="hidden" {...register('csrf_token')} />
+            <FormField>
+              <FormFieldLabel htmlFor="username">Käyttäjätunnus</FormFieldLabel>
+              <FormFieldInput id="username" {...register('username')}></FormFieldInput>
+              {errors?.username && <FormFieldErrors>{errors.username.message}</FormFieldErrors>}
+            </FormField>
+            <FormField>
+              <FormFieldLabel htmlFor="password">Salasana</FormFieldLabel>
+              <FormFieldInput
+                type="password"
+                id="password"
+                {...register('password')}
+              ></FormFieldInput>
+              {errors?.password && <FormFieldErrors>{errors.password.message}</FormFieldErrors>}
+            </FormField>
+            <Submit name="submit" type="submit" value="Kirjaudu" />
+          </Form>
+          <p>
+            Jos sinulla ei ole tunnusta, voit{' '}
+            <Link to="/register" exact>
+              rekisteröityä
+            </Link>
+          </p>
+        </div>
+      </Section>
     </>
   )
 }

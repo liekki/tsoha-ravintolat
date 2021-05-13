@@ -8,11 +8,10 @@ export function registerAction(user, password) {
   }
 }
 
-export function loginAction(user, password) {
+export function loginAction(payload) {
   return {
     type: USER_LOGIN,
-    user,
-    password,
+    payload,
   }
 }
 
