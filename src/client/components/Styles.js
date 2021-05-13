@@ -110,6 +110,11 @@ const Link = styled(NavLink)`
       background-color: #fff;
     }
   }
+  @media all and (min-width: 1024px) {
+    &:before {
+      margin-right: 10px;
+    }
+  }
 
   ${(props) =>
     props.type === 'user' &&
@@ -121,10 +126,6 @@ const Link = styled(NavLink)`
       height: 70px;
       background: url(/static/img/guy2.svg) center center no-repeat;
       background-size: 22px 25px;
-    }
-
-    .username {
-      margin-left: 10px;
     }
   `}
 
@@ -138,10 +139,6 @@ const Link = styled(NavLink)`
       height: 70px;
       background: url(/static/img/logout.svg) center center no-repeat;
       background-size: 22px 21px;
-    }
-
-    .username {
-      margin-left: 10px;
     }
   `}
 
@@ -161,6 +158,7 @@ const Link = styled(NavLink)`
   ${(props) =>
     (props.type === 'user' || props.type === 'search' || props.type === 'logout') &&
     `
+
       border-left: 1px solid rgba(0,0,0,.2);
   `}
 
@@ -261,7 +259,7 @@ const VerticalLink = styled(NavLink)`
 const Section = styled.section`
   padding: 60px 0px 50px 0px;
 
-  &:nth-child(2n + 1) {
+  &:nth-child(2n) {
     background: #f2f5f7;
   }
 
@@ -270,15 +268,113 @@ const Section = styled.section`
     max-width: 1200px;
     padding: 0px 42px;
     line-height: 1.5;
-  }
 
-  h1 {
-    text-align: center;
-    font-size: 42px;
-  }
+    > h1 {
+      text-align: center;
+      font-size: 42px;
+    }
 
-  p {
-    margin-bottom: 20px;
+    > p {
+      margin-bottom: 20px;
+    }
+  }
+`
+
+const Form = styled.form`
+  max-width: 600px;
+`
+const FormField = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px 0;
+`
+
+const FormFieldLabel = styled.label`
+  flex-basis: 30%;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 40px;
+  margin-bottom: 5px;
+`
+const FormFieldInput = styled.input`
+  box-sizing: border-box;
+  flex-basis: 70%;
+  line-height: 32px;
+  font-size: 16px;
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin-bottom: 5px;
+`
+const FormFieldTextarea = styled.textarea`
+  box-sizing: border-box;
+  flex-basis: 70%;
+  line-height: 32px;
+  font-size: 16px;
+  min-height: 120px;
+  border: 0;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin-bottom: 5px;
+`
+
+const FormFieldErrors = styled.p`
+  font-size: 12px;
+  color: #c90077;
+  margin-left: 30%;
+  flex-basis: 70%;
+`
+
+const FormFieldNote = styled.p`
+  font-size: 12px;
+  color: #666;
+  margin-left: 30%;
+  flex-basis: 70%;
+`
+const FormFieldCheckboxCollection = styled.div`
+  flex-basis: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+`
+
+const FormFieldCheckboxContainer = styled.div`
+  flex-basis: 25%;
+  white-space: nowrap;
+`
+
+const FormFieldCheckbox = styled.input`
+  margin-left: 5px;
+`
+
+const FormFieldSelect = styled.select`
+  flex-basis: 70%;
+  border: 0;
+  border-radius: 4px;
+  text-indent: 5px;
+`
+
+const FormFieldOption = styled.option``
+
+const Submit = styled.input`
+  flex-basis: 70%;
+  margin-left: 30%;
+  background: #007ac9;
+  border: 0;
+  border-radius: 4px;
+  height: 40px;
+  padding: 0px 20px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+
+  &:hover {
+    background: #0068ab;
   }
 `
 
@@ -299,4 +395,17 @@ export {
   VerticalNavList,
   VerticalNavListItem,
   VerticalLink,
+  Form,
+  FormField,
+  FormFieldLabel,
+  FormFieldInput,
+  FormFieldTextarea,
+  FormFieldErrors,
+  FormFieldNote,
+  FormFieldCheckboxCollection,
+  FormFieldCheckboxContainer,
+  FormFieldCheckbox,
+  FormFieldSelect,
+  FormFieldOption,
+  Submit,
 }

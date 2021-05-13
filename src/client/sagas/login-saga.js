@@ -10,9 +10,9 @@ function* sendLoginRequest(action) {
     const response = yield call(login, user, password)
     if (!response.error) {
       history.push('/')
-      yield put({ type: types.USER_LOGIN_SUCCESS, response: response.message })
+      yield put({ type: types.USER_LOGIN_SUCCESS, message: response.message })
     } else {
-      yield put({ type: types.USER_LOGIN_ERROR, response: response.error })
+      yield put({ type: types.USER_LOGIN_ERROR, message: response.error })
     }
   } catch (e) {
     console.log(e)
@@ -38,12 +38,12 @@ function* sendLogoutRequest() {
   try {
     const response = yield call(logout)
     if (!response.error) {
-      yield put({ type: types.USER_LOGOUT_SUCCESS, response: response.message })
+      yield put({ type: types.USER_LOGOUT_SUCCESS, message: response.message })
     } else {
-      yield put({ type: types.USER_LOGOUT_SUCCESS, response: response.error })
+      yield put({ type: types.USER_LOGOUT_ERROR, message: response.error })
     }
   } catch (e) {
-    yield put({ type: types.USER_LOGOUT_SUCCESS, e })
+    yield put({ type: types.USER_LOGOUT_ERROR, e })
   }
 }
 

@@ -1,12 +1,15 @@
 import React from 'react'
 import { NavLink, Switch, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import Header from './Header'
+import Page from './Page'
 
 import Login from './Login'
 import Logout from './Logout'
 import Register from './Register'
 import Profile from './Profile'
+import Admin from './Admin'
 
 import { GlobalStyles, Section, Wrapper } from './Styles'
 
@@ -23,13 +26,13 @@ const Home = () => {
           <p>
             Kumpulan Seudun Kaljanne, lyhenne <strong>KSK</strong> (ruots.{' '}
             <em>Gumtäktsregionens Bärs</em>) on Kumpulan seudun kaljapaikoista vastaava toimiyhtymä.
-            KSK:n järjestelmään kuuluvat kaikki Kumpulan seudun (ml. Käpylän ja Arabian)
-            anniskeluravintolat, joista tarjoamme jäsenillemme ajankohtaista tietoa ja inspiraatiota
-            tulevaisuudelle.
+            KSK:n järjestelmään kuuluvat kaikki Suur-Kumpulan alueen (ml. Käpylän ja Arabian)
+            anniskeluravintolat, joista tarjoamme jäsenillemme ajankohtaista tietoa ja
+            inspiraatiota.
           </p>
           <p>
             KSK suunnittelee toimialueensa kaljapaikkojen saatavuuden ja kattavuuden sekä
-            kilpailuttaa niiden tuottajat että vastaa alueen ajankohtaisesta tiedotuksesta, ml.
+            kilpailuttaa niiden tuottajat että vastaa alueen ajankohtaisesta tiedotuksesta, mm.
             happy hour -tarjouksista. Lisäksi KSK ylläpitää virallista ja huippusuosittua{' '}
             <NavLink to="/top">
               <em>kumpulan seudun ranking-listaa</em>
@@ -87,25 +90,26 @@ const About = () => {
   return <div>Bönthöö bönthöö bönthöö!</div>
 }
 
-const Page = (props) => {
-  return <div>mites page</div>
-}
-
 const App = () => {
   return (
     <Wrapper>
       <Header />
-      <Switch>
-        <Route path="/" exact={true} component={Home} />
-        <Route path="/about" exact={true} component={Page} />
-        <Route path="/top" exact={true} component={Top} />
-        <Route path="/search" exact={true} component={Search} />
-        <Route path="/login" exact={true} component={Login} />
-        <Route path="/logout" exact={true} component={Logout} />
-        <Route path="/profile" exact={true} component={Profile} />
-        <Route path="/register" exact={true} component={Register} />
-        <Route component={() => <p>404!</p>} />
-      </Switch>
+      <Page>
+        <Switch>
+          <Route path="/" exact={true} component={Home} />
+          <Route path="/about" exact={true} component={About} />
+          <Route path="/top" exact={true} component={Top} />
+          <Route path="/search" exact={true} component={Search} />
+          <Route path="/login" exact={true} component={Login} />
+          <Route path="/logout" exact={true} component={Logout} />
+          <Route path="/profile" exact={true} component={Profile} />
+          <Route path="/admin">
+            <Admin />
+          </Route>
+          <Route path="/register" exact={true} component={Register} />
+          <Route component={() => <p>404!</p>} />
+        </Switch>
+      </Page>
       <GlobalStyles />
     </Wrapper>
   )

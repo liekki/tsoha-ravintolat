@@ -4,4 +4,7 @@ export default {
     msg: '',
   },
   restaurant: {},
+  message: {
+    stack: [],
+  },
 }

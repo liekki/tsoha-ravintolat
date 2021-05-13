@@ -8,9 +8,9 @@ function* sendRegisterRequest(action) {
   try {
     const response = yield call(register, user, password)
     if (!response.error) {
-      yield put({ type: types.USER_REGISTER_SUCCESS, response: response.message })
+      yield put({ type: types.USER_REGISTER_SUCCESS, message: response.message })
     } else {
-      yield put({ type: types.USER_REGISTER_ERROR, response: response.error })
+      yield put({ type: types.USER_REGISTER_ERROR, message: response.error })
     }
   } catch (e) {
     console.log(e)
