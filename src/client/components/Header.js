@@ -66,18 +66,33 @@ const Header = () => {
           <NavList>
             {user && (
               <>
-                <NavListItem>
-                  <Link
-                    type={'user'}
-                    activeClassName="active"
-                    to="/profile"
-                    exact={true}
-                    onClick={() => setMobileMenuVisible(false)}
-                  >
-                    <span className="username">{user.username}</span>
-                    <span className="underline" />
-                  </Link>
-                </NavListItem>
+                {user.is_admin ? (
+                  <NavListItem>
+                    <Link
+                      type={'user'}
+                      activeClassName="active"
+                      to="/admin"
+                      exact={true}
+                      onClick={() => setMobileMenuVisible(false)}
+                    >
+                      <span className="username">admin</span>
+                      <span className="underline" />
+                    </Link>
+                  </NavListItem>
+                ) : (
+                  <NavListItem>
+                    <Link
+                      type={'user'}
+                      activeClassName="active"
+                      to="/profile"
+                      exact={true}
+                      onClick={() => setMobileMenuVisible(false)}
+                    >
+                      <span className="username">{user.username}</span>
+                      <span className="underline" />
+                    </Link>
+                  </NavListItem>
+                )}
                 <NavListItem>
                   <Link
                     type={'logout'}
@@ -86,6 +101,7 @@ const Header = () => {
                     exact={true}
                     onClick={() => setMobileMenuVisible(false)}
                   >
+                    Kirjaudu ulos
                     <span className="underline" />
                   </Link>
                 </NavListItem>
@@ -100,6 +116,7 @@ const Header = () => {
                   exact={true}
                   onClick={() => setMobileMenuVisible(false)}
                 >
+                  Kirjaudu sisään
                   <span className="underline" />
                 </Link>
               </NavListItem>
@@ -112,6 +129,7 @@ const Header = () => {
                 exact={true}
                 onClick={() => setMobileMenuVisible(false)}
               >
+                Etsi
                 <span className="underline" />
               </Link>
             </NavListItem>
