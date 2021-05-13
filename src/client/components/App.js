@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, Switch, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import ScrollToTop from './ScrollToTop'
 import Header from './Header'
 import Page from './Page'
 
@@ -95,6 +96,7 @@ const App = () => {
     <Wrapper>
       <Header />
       <Page>
+        <ScrollToTop />
         <Switch>
           <Route path="/" exact={true} component={Home} />
           <Route path="/about" exact={true} component={About} />
