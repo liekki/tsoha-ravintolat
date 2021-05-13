@@ -282,6 +282,7 @@ const Section = styled.section`
 
 const Form = styled.form`
   max-width: 600px;
+  margin-bottom: 20px;
 `
 const FormField = styled.div`
   display: flex;
