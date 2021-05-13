@@ -23,7 +23,7 @@ const Page = (props) => {
       {messages.length > 0 && (
         <Container>
           {messages.map((m) => (
-            <Message>{m}</Message>
+            <Message key={m}>{m}</Message>
           ))}
         </Container>
       )}
