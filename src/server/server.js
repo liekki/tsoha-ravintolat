@@ -8,6 +8,8 @@ import { hashPasswordAsync, checkHashedPasswordAsync } from './security'
 import { checkAccess, addUserToRequest } from './api'
 
 import * as users from './db/users'
+import * as restaurants from './db/restaurants'
+import * as schema from '../shared/schema'
 
 const PORT = process.env.PORT || 1234
 const APP_PATH = process.env.APP_PATH || path.resolve(__dirname + '/../../dist/client')
@@ -67,13 +69,44 @@ app.post('/api/logout', (req, res) => {
   res.status(200).json({ message: 'Uloskirjautuminen onnistui' })
 })
 
+app.post(
+  '/api/restaurant/add',
+  checkAccess((req) => req.user?.is_admin),
+  async (req, res) => {
+    const { payload } = req.body
+
+    const isValid = await schema.restaurant.validate(payload)
+    if (isValid) {
+      try {
+        const restaurant = await restaurants.addRestaurant(payload)
+        res.status(200).send({ message: 'Ravintolan lisääminen onnistui' })
+      } catch (err) {
+        res.status(500).send({ error: 'Ravintolan lisääminen epäonnistui' })
+      }
+    } else {
+      res.status(400).json({ error: 'Invalid restaurant' })
+    }
+  }
+)
+
 app.get(
   '/api/profile',
-  checkAccess((req) => console.log(req) || !!req.user),
+  checkAccess((req) => !!req.user),
   (req, res) => {
     res.status(200).json({
       ...req.user,
       password: null,
+    })
+  }
+)
+
+app.get(
+  '/api/features',
+  checkAccess((req) => req.user.is_admin),
+  async (req, res) => {
+    const features = await restaurants.getFeatures()
+    res.status(200).json({
+      features,
     })
   }
 )

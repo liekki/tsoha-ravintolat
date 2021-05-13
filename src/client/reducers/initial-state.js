@@ -3,4 +3,5 @@ export default {
     loading: false,
     msg: '',
   },
+  restaurant: {},
 }
