@@ -8,7 +8,6 @@ export function features() {
 }
 
 export function addRestaurant(payload) {
-  console.log('from api', payload)
   return fetch(`${API_URL}/restaurant/add`, {
     method: 'POST',
     headers: {
@@ -20,6 +19,22 @@ export function addRestaurant(payload) {
   }).then((response) => response.json())
 }
 
+export function updateRestaurant(id, payload) {
+  return fetch(`${API_URL}/restaurant/update/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      payload,
+    }),
+  }).then((response) => response.json())
+}
+
 export function getRestaurants() {
   return fetch(`${API_URL}/restaurant/get`).then((response) => response.json())
+}
+
+export function getRestaurantById(id) {
+  return fetch(`${API_URL}/restaurant/get/${id}`).then((response) => response.json())
 }

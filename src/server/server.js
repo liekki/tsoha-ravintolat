@@ -95,6 +95,47 @@ app.post(
   }
 )
 
+app.put(
+  '/api/restaurant/update/:id',
+  checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
+  async (req, res) => {
+    const { payload } = req.body
+    const id = req.params.id
+    const isValid = await schema.restaurant.validate(payload)
+    if (isValid) {
+      try {
+        const restaurant = await restaurants.updateRestaurant(id, payload)
+        res.status(200).json({ message: 'Ravintolan tietojen päivittäminen onnistui' })
+      } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Ravintolan tietojen päivittäminen epäonnistui' })
+      }
+    } else {
+      res.status(400).json({ error: 'Invalid restaurant' })
+    }
+  }
+)
+
+app.get(
+  '/api/restaurant/get',
+  checkAccess((req) => req.user?.is_admin),
+  async (req, res) => {
+    const data = await restaurants.getRestaurants()
+    res.status(200).json({ message: 'ok', data })
+  }
+)
+
+app.get(
+  '/api/restaurant/get/:id',
+  checkAccess((req) => req.user?.is_admin),
+  async (req, res) => {
+    const id = req.params.id
+    const data = await restaurants.getRestaurantById(id)
+    res.status(200).json({ message: 'ok', data })
+  }
+)
+
 app.get(
   '/api/profile',
   checkAccess((req) => !!req.user),

@@ -6,7 +6,11 @@ const restaurant = (state = initialState.restaurant, action) => {
     case actionTypes.RESTAURANT_ADD:
       return {
         ...state,
-        working: true,
+      }
+    case actionTypes.RESTAURANTS_GET_ALL_SUCCESS:
+      return {
+        ...state,
+        list: action.restaurants.data,
       }
     default:
       return state

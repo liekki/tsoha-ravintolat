@@ -3,7 +3,9 @@ export default {
     loading: false,
     msg: '',
   },
-  restaurant: {},
+  restaurant: {
+    list: [],
+  },
   message: {
     stack: [],
   },
