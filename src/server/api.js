@@ -7,6 +7,7 @@ export async function addUserToRequest(req, res, next) {
       const user = await getUserById(session.userId, { includePassword: true })
       if (user) {
         req.user = user
+        req.csrf_token = session.csrf_token
       } else {
         // TODO: handle deleted user while session is active
       }

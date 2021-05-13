@@ -16,6 +16,7 @@ export default (req, res) => {
   const partialState = {
     user: {
       identity: req.user ? { ...req.user, password: null } : null,
+      csrfToken: req.csrf_token || null,
     },
   }
   const store = configureStore(partialState, req.url)

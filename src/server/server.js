@@ -4,7 +4,12 @@ import path from 'path'
 import cookieParser from 'cookie-parser'
 
 import serveApp from './serveApp'
-import { hashPasswordAsync, checkHashedPasswordAsync } from './security'
+import {
+  hashPasswordAsync,
+  checkHashedPasswordAsync,
+  initializeSession,
+  checkCsrfToken,
+} from './security'
 import { checkAccess, addUserToRequest } from './api'
 
 import * as users from './db/users'
@@ -40,6 +45,7 @@ app.use('/robots.txt', (req, res) => {
 })
 
 app.use('/', addUserToRequest)
+app.use('/', initializeSession)
 
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body
