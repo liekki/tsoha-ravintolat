@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import StarRatings from 'react-star-ratings'
 
 import { getRestaurantsAction } from '../actions/restaurant'
 import { history } from '../store'
@@ -117,7 +118,15 @@ const Home = () => {
               icon={'/static/img/marker.png'}
             >
               <InfoWindow>
-                <p>{r.name}</p>
+                <>
+                  <h3>{r.name}</h3>
+                  <StarRatings
+                    rating={parseFloat(r.average_rating) || 0}
+                    starDimension="15px"
+                    starSpacing="0px"
+                    starRatedColor="#FFCD3A"
+                  />
+                </>
               </InfoWindow>
             </Marker>
           ))}

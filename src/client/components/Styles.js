@@ -30,8 +30,14 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  .gm-style-iw {
+    padding: 12px !important;
+  }
   .gm-ui-hover-effect {
     display: none !important;
+  }
+  .gm-style-iw-d {
+    overflow: auto !important;
   }
 `
 
