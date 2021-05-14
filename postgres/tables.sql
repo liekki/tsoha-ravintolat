@@ -58,8 +58,8 @@ CREATE TABLE reviews (
   CHECK           (rating IN (1, 2, 3, 4, 5))
 );
 
-CREATE INDEX review_restaurant_id_idx ON review (restaurant_id);
-CREATE INDEX review_user_id_idx ON review (user_id);
+CREATE INDEX review_restaurant_id_idx ON reviews (restaurant_id);
+CREATE INDEX review_user_id_idx ON reviews (user_id);
 
 CREATE TABLE features (
   id          serial PRIMARY KEY,
