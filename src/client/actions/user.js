@@ -1,10 +1,9 @@
 import { USER_REGISTER, USER_LOGIN, USER_LOGOUT } from '../constants/action-types'
 
-export function registerAction(user, password) {
+export function registerAction(payload) {
   return {
     type: USER_REGISTER,
-    user,
-    password,
+    payload,
   }
 }
 

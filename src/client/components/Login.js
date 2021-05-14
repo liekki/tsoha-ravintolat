@@ -7,7 +7,15 @@ import * as yup from 'yup'
 
 import { loginAction } from '../actions/user'
 
-import { Section, Form, FormField, FormFieldLabel, FormFieldInput, Submit } from './Styles'
+import {
+  Section,
+  Form,
+  FormField,
+  FormFieldLabel,
+  FormFieldInput,
+  FormFieldErrors,
+  Submit,
+} from './Styles'
 
 const schema = yup.object().shape({
   username: yup.string().required(),

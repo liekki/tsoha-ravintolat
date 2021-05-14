@@ -3,11 +3,14 @@ import * as types from '../constants/action-types'
 
 import { register } from '../api/user'
 
+import { history } from '../store'
+
 function* sendRegisterRequest(action) {
-  const { user, password } = action
+  const { payload } = action
   try {
-    const response = yield call(register, user, password)
+    const response = yield call(register, payload)
     if (!response.error) {
+      history.push('/login')
       yield put({ type: types.USER_REGISTER_SUCCESS, message: response.message })
     } else {
       yield put({ type: types.USER_REGISTER_ERROR, message: response.error })

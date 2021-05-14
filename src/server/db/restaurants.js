@@ -64,7 +64,9 @@ export async function deleteRestaurant(id) {
 }
 
 export async function getRestaurants() {
-  const result = await query(`SELECT * FROM restaurants WHERE deleted_at IS NULL ORDER BY name ASC`)
+  const result = await query(
+    `SELECT r.*, ROUND(AVG(r2.rating), 2) AS average_rating FROM restaurants r LEFT JOIN reviews r2 ON r2.restaurant_id = r.id WHERE r.deleted_at IS NULL GROUP BY r.id;`
+  )
   return result.rows
 }
 

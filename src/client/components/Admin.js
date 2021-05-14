@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { NavLink, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Section } from './Styles'
+import { Section, SubMenu, SubMenuItem } from './Styles'
 
 import { getRestaurantsAction } from '../actions/restaurant'
 
@@ -33,14 +33,14 @@ const Profile = () => {
       </Section>
       <Section>
         <div>
-          <ul>
-            <li>
+          <SubMenu>
+            <SubMenuItem>
               <Link to={`${url}`}>Listaa ravintolat</Link>
-            </li>
-            <li>
+            </SubMenuItem>
+            <SubMenuItem>
               <Link to={`${url}/new`}>Lisää uusi ravintola</Link>
-            </li>
-          </ul>
+            </SubMenuItem>
+          </SubMenu>
           <Switch>
             <Route exact path={path}>
               <ListRestaurants restaurants={restaurants} />

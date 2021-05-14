@@ -1,34 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import { Table, Row, Td, Th } from './Styles'
 
 const ListRestaurants = ({ restaurants }) => {
   return (
-    <table>
+    <Table>
       <thead>
-        <tr>
-          <th>Nimi</th>
-          <th>Lokaatio</th>
-          <th>Toiminnot</th>
-        </tr>
+        <Row>
+          <Th>Nimi</Th>
+          <Th>Lokaatio</Th>
+          <Th>Toiminnot</Th>
+        </Row>
       </thead>
       <tbody>
         {restaurants.length > 0 &&
           restaurants.map((r) => {
             return (
-              <tr key={r.id}>
-                <td>{r.name}</td>
-                <td>
+              <Row key={r.id}>
+                <Td>{r.name}</Td>
+                <Td>
                   ({r.latitude},{r.longitude})
-                </td>
-                <td>
+                </Td>
+                <Td>
                   <Link to={`/admin/edit/${r.id}`}>edit</Link> /{' '}
                   <Link to={`/admin/delete/${r.id}`}>delete</Link>
-                </td>
-              </tr>
+                </Td>
+              </Row>
             )
           })}
       </tbody>
-    </table>
+    </Table>
   )
 }
 

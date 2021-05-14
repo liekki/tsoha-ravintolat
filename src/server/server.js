@@ -202,8 +202,8 @@ app.get('/api/features', async (req, res) => {
   })
 })
 
-app.post('/api/register', async (req, res) => {
-  const { username, password } = req.body
+app.post('/api/register', checkCsrfToken, async (req, res) => {
+  const { username, password } = req.body.payload
 
   const usernameTaken = await users.getUserByUsername(username)
 

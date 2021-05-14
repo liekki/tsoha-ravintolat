@@ -33,7 +33,7 @@ const About = () => {
           <p>
             KSK:n johtoryhmä koostuu alan kivenkovista veteraaneista, sillä hallituksen
             puheenjohtajaksi saatiin napattua vuonna 1969 silloisen Porin Oluttehtaan (
-            <em>nyk. Sinebrychoff</em>) toimitus- ja kehitysjohtaja FM Petri "Linja-veto" Pennanen.
+            <em>nyk. Sinebrychoff</em>) toimitus- ja kehitysjohtaja FM Petri "Linjaveto" Pennanen.
             Pennasen aloitettua KSK:n johdossa ja puheenjohtajana yhtymämme kehitys on ollut
             lähtökohtaisesti nousujohtoista ja jäsenmäärämme onkin kasvanut yli 100%.
           </p>

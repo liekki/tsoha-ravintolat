@@ -7,8 +7,8 @@ export async function addUserToRequest(req, res, next) {
       const user = await getUserById(session.userId, { includePassword: true })
       if (user) {
         req.user = user
-        req.csrf_token = session.csrf_token
       }
+      req.csrf_token = session.csrf_token
     }
     next()
   } catch (err) {

@@ -71,7 +71,7 @@ const Restaurant = () => {
                 </td>
               </tr>
               <tr>
-                <th>Arvostelujen ka.</th>
+                <th>Arvosanojen ka.</th>
                 <td>
                   {restaurant.reviews.length > 0 ? (
                     <span>

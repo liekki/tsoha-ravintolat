@@ -14,33 +14,10 @@ import Admin from './Admin'
 import About from './About'
 import Home from './Home'
 import Restaurant from './Restaurant'
+import Top from './Top'
+import Search from './Search'
 
 import { GlobalStyles, Section, Wrapper } from './Styles'
-
-const Top = () => {
-  return (
-    <>
-      <Section>
-        <div>
-          <h1>KSK:n ranking-lista</h1>
-        </div>
-      </Section>
-      <Section>
-        <div>
-          <p>
-            Parhaat kaljapaikat ovat tunnetusti niitä, joissa tuntee olonsa kuin kotonaan. Tätä
-            tunnetta me kaikki metsästämme etsiessämme paikkoja juoda kaljaa. KSK:n ranking-listalta
-            löydät kaikki vuoden 2021 kuumimmat kaljapaikat!
-          </p>
-        </div>
-      </Section>
-    </>
-  )
-}
-
-const Search = () => {
-  return <div>Etsi lempiravintolasi Kumpulasta!</div>
-}
 
 const App = () => {
   return (

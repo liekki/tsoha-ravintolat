@@ -390,6 +390,53 @@ const Submit = styled.input`
   }
 `
 
+const SubMenu = styled.ul`
+  list-style-type: none;
+  margin-bottom: 20px;
+`
+
+const SubMenuItem = styled.li`
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007ac9;
+  font-weight: bold;
+
+  > a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+
+  &:first-child {
+    border-radius: 6px 0px 0px 6px;
+  }
+
+  &:last-child {
+    border-right: 0;
+    border-radius: 0px 6px 6px 0px;
+  }
+`
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`
+
+const Row = styled.tr`
+  &:nth-child(2n) {
+    background: rgba(0, 0, 0, 0.05);
+  }
+`
+
+const Th = styled.th`
+  padding: 20px;
+  text-align: left;
+`
+const Td = styled.td`
+  padding: 20px;
+`
+
 export {
   GlobalStyles,
   Section,
@@ -420,4 +467,10 @@ export {
   FormFieldSelect,
   FormFieldOption,
   Submit,
+  SubMenu,
+  SubMenuItem,
+  Table,
+  Row,
+  Th,
+  Td,
 }

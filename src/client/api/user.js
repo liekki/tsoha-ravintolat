@@ -3,15 +3,14 @@ import window from 'global/window'
 
 const API_URL = `//${window?.location?.host}/api`
 
-export function register(username, password) {
+export function register(payload) {
   return fetch(`${API_URL}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username,
-      password,
+      payload,
     }),
   }).then((response) => response.json())
 }
