@@ -33,8 +33,6 @@ export function initializeSession(req, res, next) {
       sameSite: true,
     })
     req.csrf_token = csrfToken
-
-    console.log(req.csrf_token)
   }
   next()
 }

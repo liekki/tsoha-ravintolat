@@ -19,11 +19,19 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100%;
   }
 
+  h2 {
+    margin-bottom: 10px;
+  }
+
   a {
     color: #007ac9;
     &:visited {
       color: #0762A1;
     }
+  }
+
+  .gm-ui-hover-effect {
+    display: none !important;
   }
 `
 
@@ -309,6 +317,7 @@ const FormFieldInput = styled.input`
   border-radius: 4px;
   padding: 4px 12px;
   margin-bottom: 5px;
+  border: 2px solid #f2f5f7;
 `
 const FormFieldTextarea = styled.textarea`
   box-sizing: border-box;
@@ -320,6 +329,7 @@ const FormFieldTextarea = styled.textarea`
   border-radius: 4px;
   padding: 4px 12px;
   margin-bottom: 5px;
+  border: 2px solid #f2f5f7;
 `
 
 const FormFieldErrors = styled.p`

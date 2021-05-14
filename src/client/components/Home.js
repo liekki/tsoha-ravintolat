@@ -67,26 +67,24 @@ const Home = () => {
       options={options}
     >
       <>
-        {restaurants.map(
-          (r) =>
-            console.log(r) || (
-              <Marker
-                onLoad={onLoad}
-                position={{
-                  lat: r.latitude,
-                  lng: r.longitude,
-                }}
-                onClick={() => {
-                  history.push(`/view/${r.id}`)
-                }}
-                icon={'/static/img/marker.png'}
-              >
-                <InfoWindow>
-                  <p>{r.name}</p>
-                </InfoWindow>
-              </Marker>
-            )
-        )}
+        {restaurants.map((r) => (
+          <Marker
+            key={r.id}
+            onLoad={onLoad}
+            position={{
+              lat: r.latitude,
+              lng: r.longitude,
+            }}
+            onClick={() => {
+              history.push(`/view/${r.id}`)
+            }}
+            icon={'/static/img/marker.png'}
+          >
+            <InfoWindow>
+              <p>{r.name}</p>
+            </InfoWindow>
+          </Marker>
+        ))}
       </>
     </GoogleMap>
   ) : (

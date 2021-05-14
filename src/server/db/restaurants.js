@@ -57,6 +57,12 @@ export async function updateRestaurant(
   })
 }
 
+export async function deleteRestaurant(id) {
+  const result = await query(`UPDATE restaurants SET deleted_at = $1 WHERE id = $2`, ['now', id])
+
+  return result
+}
+
 export async function getRestaurants() {
   const result = await query(`SELECT * FROM restaurants WHERE deleted_at IS NULL ORDER BY name ASC`)
   return result.rows
@@ -64,7 +70,7 @@ export async function getRestaurants() {
 
 export async function getRestaurantById(id) {
   const restaurant = await query(
-    `SELECT * FROM restaurants WHERE id = $1 AND deleted_at IS NULL ORDER BY name ASC`,
+    `SELECT r.*, ROUND(AVG(r2.rating), 2) AS average_rating FROM restaurants r LEFT JOIN reviews r2 ON r2.restaurant_id = r.id WHERE r.id = $1 AND r.deleted_at IS NULL GROUP BY r.id;`,
     [id]
   )
 
@@ -73,12 +79,31 @@ export async function getRestaurantById(id) {
     [restaurant.rows[0].id]
   )
 
+  const reviews = await query(
+    `SELECT r.*, u.username FROM reviews r INNER JOIN users u ON r.user_id = u.id WHERE r.restaurant_id = $1 ORDER BY r.created_at DESC`,
+    [id]
+  )
+
   return {
     ...restaurant.rows[0],
     rights: restaurant.rows[0].rights || '',
+    reviews: reviews.rows,
     features: zipObject(
       features.rows.map((f) => f.feature_id),
       features.rows.map((_) => true)
     ),
   }
+}
+
+export async function addReview(id, userId, { comment, rating }) {
+  const result = await query(
+    `INSERT INTO reviews (restaurant_id, user_id, comment, rating, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`,
+    [id, userId, comment, rating, 'now()', 'now()']
+  )
+  return result
+}
+
+export async function deleteReview(id) {
+  const result = await query(`DELETE FROM reviews WHERE id = $1 RETURNING *`, [id])
+  return result.rows[0]
 }

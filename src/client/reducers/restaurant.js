@@ -12,6 +12,16 @@ const restaurant = (state = initialState.restaurant, action) => {
         ...state,
         list: action.restaurants.data,
       }
+    case actionTypes.RESTAURANTS_GET:
+      return {
+        ...state,
+        view: null,
+      }
+    case actionTypes.RESTAURANTS_GET_SUCCESS:
+      return {
+        ...state,
+        view: action.restaurant.data,
+      }
     default:
       return state
   }

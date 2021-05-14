@@ -8,11 +8,16 @@ const restaurant = yup.object().shape({
   latitude: yup
     .string()
     .required()
-    .matches(/\d{2}\.\d{6}/),
+    .matches(/^\d{2}\.\d{6}$/),
   longitude: yup
     .string()
     .required()
-    .matches(/\d{2}\.\d{6}/),
+    .matches(/^\d{2}\.\d{6}$/),
 })
 
-export { restaurant }
+const review = yup.object().shape({
+  comment: yup.string().min(2).max(240).required(),
+  rating: yup.string().oneOf(['1', '2', '3', '4', '5']).required(),
+})
+
+export { restaurant, review }

@@ -8,8 +8,6 @@ export async function addUserToRequest(req, res, next) {
       if (user) {
         req.user = user
         req.csrf_token = session.csrf_token
-      } else {
-        // TODO: handle deleted user while session is active
       }
     }
     next()

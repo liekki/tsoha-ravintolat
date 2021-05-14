@@ -31,6 +31,43 @@ export function updateRestaurant(id, payload) {
   }).then((response) => response.json())
 }
 
+export function deleteRestaurant(payload) {
+  const { id } = payload
+  return fetch(`${API_URL}/restaurant/delete/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      payload,
+    }),
+  }).then((response) => response.json())
+}
+
+export function addReview(id, payload) {
+  return fetch(`${API_URL}/restaurant/review/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      payload,
+    }),
+  }).then((response) => response.json())
+}
+
+export function deleteReview(id, payload) {
+  return fetch(`${API_URL}/restaurant/review/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      payload,
+    }),
+  }).then((response) => response.json())
+}
+
 export function getRestaurants() {
   return fetch(`${API_URL}/restaurant/get`).then((response) => response.json())
 }

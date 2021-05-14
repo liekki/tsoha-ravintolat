@@ -26,7 +26,6 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(schema),
   })
-  console.log(state)
   setValue('csrf_token', state.csrfToken, { shouldValidate: false })
   const onErrors = (errors) => console.error(errors)
   const handleLogin = (data) => {

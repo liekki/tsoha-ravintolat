@@ -53,7 +53,6 @@ app.post('/api/login', async (req, res) => {
   const user = await users.getUserByUsername(payload.username)
   if (user) {
     const validPassword = await checkHashedPasswordAsync(payload.password, user.password)
-    console.log(validPassword)
     if (validPassword) {
       const session = JSON.parse(req.signedCookies.session)
       res.cookie('session', JSON.stringify({ ...session, userId: user.id }), {
@@ -118,22 +117,70 @@ app.put(
   }
 )
 
-app.get(
-  '/api/restaurant/get',
+app.delete(
+  '/api/restaurant/delete/:id',
   checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
   async (req, res) => {
-    const data = await restaurants.getRestaurants()
-    res.status(200).json({ message: 'ok', data })
+    const id = req.params.id
+    try {
+      await restaurants.deleteRestaurant(id)
+      res.status(200).json({ message: 'Ravintolan poistaminen onnistui' })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ error: 'Ravintolan poistaminen epäonnistui' })
+    }
   }
 )
 
-app.get(
-  '/api/restaurant/get/:id',
-  checkAccess((req) => req.user?.is_admin),
+app.get('/api/restaurant/get', async (req, res) => {
+  const data = await restaurants.getRestaurants()
+  res.status(200).json({ message: 'ok', data })
+})
+
+app.get('/api/restaurant/get/:id', async (req, res) => {
+  const id = req.params.id
+  const data = await restaurants.getRestaurantById(id)
+  res.status(200).json({ message: 'ok', data })
+})
+
+app.post(
+  '/api/restaurant/review/:id',
+  checkAccess((req) => req.user),
+  checkCsrfToken,
   async (req, res) => {
     const id = req.params.id
-    const data = await restaurants.getRestaurantById(id)
-    res.status(200).json({ message: 'ok', data })
+    const { payload } = req.body
+    const { id: userId } = req.user
+
+    const isValid = await schema.review.validate(payload)
+    if (isValid) {
+      try {
+        await restaurants.addReview(id, userId, payload)
+        res.status(200).json({ message: 'Arvion lisääminen onnistui' })
+      } catch (err) {
+        res.status(500).json({ error: 'Arvion lisääminen epäonnistui' })
+      }
+    } else {
+      res.status(400).json({ error: 'Invalid review' })
+    }
+  }
+)
+
+app.delete(
+  '/api/restaurant/review/:id',
+  checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
+  async (req, res) => {
+    const id = req.params.id
+    try {
+      const result = await restaurants.deleteReview(id)
+      res
+        .status(200)
+        .json({ message: 'Arvion poistaminen onnistui', restaurantId: result.restaurant_id })
+    } catch (err) {
+      res.status(500).json({ error: 'Arvion poistaminen epäonnistui' })
+    }
   }
 )
 
@@ -148,16 +195,12 @@ app.get(
   }
 )
 
-app.get(
-  '/api/features',
-  checkAccess((req) => req.user.is_admin),
-  async (req, res) => {
-    const features = await restaurants.getFeatures()
-    res.status(200).json({
-      features,
-    })
-  }
-)
+app.get('/api/features', async (req, res) => {
+  const features = await restaurants.getFeatures()
+  res.status(200).json({
+    features,
+  })
+})
 
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body

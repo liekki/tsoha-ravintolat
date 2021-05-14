@@ -21,7 +21,8 @@ const ListRestaurants = ({ restaurants }) => {
                   ({r.latitude},{r.longitude})
                 </td>
                 <td>
-                  <Link to={`/admin/edit/${r.id}`}>edit</Link> / delete
+                  <Link to={`/admin/edit/${r.id}`}>edit</Link> /{' '}
+                  <Link to={`/admin/delete/${r.id}`}>delete</Link>
                 </td>
               </tr>
             )

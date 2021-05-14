@@ -5,6 +5,7 @@ export default {
   },
   restaurant: {
     list: [],
+    view: null,
   },
   message: {
     stack: [],

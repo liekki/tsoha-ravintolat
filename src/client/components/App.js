@@ -13,6 +13,7 @@ import Profile from './Profile'
 import Admin from './Admin'
 import About from './About'
 import Home from './Home'
+import Restaurant from './Restaurant'
 
 import { GlobalStyles, Section, Wrapper } from './Styles'
 
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/login" exact={true} component={Login} />
           <Route path="/logout" exact={true} component={Logout} />
           <Route path="/profile" exact={true} component={Profile} />
+          <Route path="/view/:restaurantId" component={Restaurant} />
           <Route path="/admin">
             <Admin />
           </Route>

@@ -10,6 +10,10 @@ const message = (state = initialState.message, action) => {
     case actionTypes.USER_LOGIN_ERROR:
     case actionTypes.RESTAURANT_UPDATE_SUCCESS:
     case actionTypes.RESTAURANT_UPDATE_ERROR:
+    case actionTypes.RESTAURANT_REVIEW_ADD_ERROR:
+    case actionTypes.RESTAURANT_REVIEW_ADD_SUCCESS:
+    case actionTypes.RESTAURANT_REVIEW_DELETE_SUCCESS:
+    case actionTypes.RESTAURANT_REVIEW_DELETE_ERROR:
       return {
         ...state,
         stack: state.stack.concat(action.message),

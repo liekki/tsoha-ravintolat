@@ -9,6 +9,8 @@ import { getRestaurantsAction } from '../actions/restaurant'
 import AddRestaurant from './AddRestaurant'
 import EditRestaurant from './EditRestaurant'
 import ListRestaurants from './ListRestaurants'
+import DeleteRestaurant from './DeleteRestaurant'
+import DeleteReview from './DeleteReview'
 
 const Profile = () => {
   const user = useSelector((state) => state.user?.identity)
@@ -47,9 +49,17 @@ const Profile = () => {
               <h2>Muokkaa ravintolaa</h2>
               <EditRestaurant />
             </Route>
+            <Route path={`${path}/delete/:restaurantId`}>
+              <h2>Poista ravintola</h2>
+              <DeleteRestaurant />
+            </Route>
             <Route path={`${path}/new`}>
               <h2>Lisää ravintola</h2>
               <AddRestaurant />
+            </Route>
+            <Route path={`${path}/review/edit/:reviewId`}>
+              <h2>Poista kommentti</h2>
+              <DeleteReview />
             </Route>
           </Switch>
         </div>
