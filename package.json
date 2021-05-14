@@ -9,7 +9,7 @@
     "clean": "run-p -y clean:server clean:client",
     "minify:js": "uglifyjs dist/client/js/app.js --compress --mangle -o dist/client/js/app.js",
     "build:client:prepare": "mkdir -p dist/client/js && cp src/client/index.html dist/client/index.html && cp -R src/client/assets/* dist/client/ && cp -R src/shared dist/",
-    "build:client:js": "BABEL_ENV=client NODE_ENV=production browserify -v -t babelify -t loose-envify src/client/client.js -o dist/client/js/app.js",
+    "build:client:js": "BABEL_ENV=client NODE_ENV=production browserify -v -t babelify -g loose-envify src/client/client.js -o dist/client/js/app.js",
     "build:client": "run-s -y clean:client build:client:prepare build:client:js build:client:babel minify:js",
     "build:client:babel": "BABEL_ENV=client babel --source-maps false --out-dir dist/client/components src/client/components",
     "build:server:babel": "BABEL_ENV=server babel --source-maps false --out-dir dist/server src/server",
