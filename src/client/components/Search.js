@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { Section, Table, Row, Th, Td, FormField, FormFieldLabel, FormFieldInput } from './Styles'
 
-import { getRestaurantsAction } from '../actions/restaurant'
+import { getRestaurantsAction } from  '../../shared/actions/restaurant'
 
 const SearchBox = styled(FormFieldInput)``
 

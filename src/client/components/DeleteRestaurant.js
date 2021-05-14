@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import find from 'lodash/find'
 
-import { deleteRestaurantAction } from '../actions/restaurant'
-import { getRestaurantById } from '../api/restaurant'
+import { deleteRestaurantAction } from  '../../shared/actions/restaurant'
+import { getRestaurantById } from '../../shared/api/restaurant'
 
 import { Form, FormField, FormFieldInput, FormFieldLabel, Submit } from './Styles'
 

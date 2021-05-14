@@ -15,7 +15,7 @@ import {
   Submit,
 } from './Styles'
 
-import { registerAction } from '../actions/user'
+import { registerAction } from '../../shared/actions/user'
 
 const schema = yup.object().shape({
   username: yup

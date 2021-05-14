@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useSelector } from 'react-redux'
 
-import * as restaurant from '../api/restaurant'
+import * as restaurant from '../../shared/api/restaurant'
 import * as schema from '../../shared/schema'
 
 import {

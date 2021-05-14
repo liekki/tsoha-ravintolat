@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import find from 'lodash/find'
 
-import { updateRestaurantAction } from '../actions/restaurant'
+import { updateRestaurantAction } from  '../../shared/actions/restaurant'
 import FormRestaurant from './FormRestaurant'
-import { getRestaurantById } from '../api/restaurant'
+import { getRestaurantById } from '../../shared/api/restaurant'
 
 const EditRestaurant = () => {
   const dispatch = useDispatch()

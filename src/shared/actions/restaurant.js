@@ -6,7 +6,7 @@ import {
   RESTAURANTS_GET_ALL,
   RESTAURANT_REVIEW_ADD,
   RESTAURANT_REVIEW_DELETE,
-} from '../constants/action-types'
+} from '../../shared/constants/action-types'
 
 export function addRestaurantAction(payload) {
   return {

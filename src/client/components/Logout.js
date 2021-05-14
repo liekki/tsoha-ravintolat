@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { logoutAction } from '../actions/user'
-import { history } from '../store'
+import { logoutAction } from '../../shared/actions/user'
+import { history } from '../../shared/store'
 
 const Logout = () => {
   const dispatch = useDispatch()

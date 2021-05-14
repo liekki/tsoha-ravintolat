@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import { loginAction } from '../actions/user'
+import { loginAction } from '../../shared/actions/user'
 
 import {
   Section,

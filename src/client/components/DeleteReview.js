@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { deleteReviewAction } from '../actions/restaurant'
+import { deleteReviewAction } from  '../../shared/actions/restaurant'
 
 import { Form, Submit } from './Styles'
 

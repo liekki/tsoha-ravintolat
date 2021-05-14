@@ -11,7 +11,9 @@ const pool = new Pool({
   host: hostname,
   port,
   database: pathname.split('/')[1],
-  ssl: process.env.NODE_ENV === 'production',
+  ssl: process.env.NODE_ENV === 'production' ? {
+    rejectUnauthorized: false
+  } : false,
   max: 10,
   idleTimeoutMillis: 1000,
   connectionTimeoutMillis: 1000,

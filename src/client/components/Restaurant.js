@@ -3,14 +3,13 @@ import { NavLink, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import StarRatings from 'react-star-ratings'
 
-import { getRestaurantById, features as getFeatures } from '../api/restaurant'
-import { getRestaurantAction, addReviewAction } from '../actions/restaurant'
-
+import { getRestaurantById, features as getFeatures } from '../../shared/api/restaurant'
+import { getRestaurantAction, addReviewAction } from  '../../shared/actions/restaurant'
 import FormReview from './FormReview'
 
 import { Section } from './Styles'
 
-import { history } from '../store'
+import { history } from '../../shared/store'
 
 const Restaurant = () => {
   let { restaurantId } = useParams()

@@ -1,9 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import * as types from '../constants/action-types'
+import * as types from '../../shared/constants/action-types'
 
-import { register } from '../api/user'
+import { register } from '../../shared/api/user'
 
-import { history } from '../store'
+import { history } from '../../shared/store'
 
 function* sendRegisterRequest(action) {
   const { payload } = action

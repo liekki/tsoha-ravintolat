@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ServerStyleSheet } from 'styled-components'
 
-import configureStore from '../client/store'
+import configureStore from '../shared/store'
 import App from '../client/components/App'
 
 export default (req, res) => {

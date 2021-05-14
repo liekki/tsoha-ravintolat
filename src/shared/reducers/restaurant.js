@@ -1,5 +1,5 @@
 import initialState from './initial-state'
-import * as actionTypes from '../constants/action-types'
+import * as actionTypes from '../../shared/constants/action-types'
 
 const restaurant = (state = initialState.restaurant, action) => {
   switch (action.type) {

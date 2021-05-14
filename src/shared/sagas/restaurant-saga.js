@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
-import * as types from '../constants/action-types'
+import * as types from '../../shared/constants/action-types'
 
 import {
   addRestaurant,
@@ -9,9 +9,9 @@ import {
   getRestaurantById,
   addReview,
   deleteReview,
-} from '../api/restaurant'
+} from '../../shared/api/restaurant'
 
-import { history } from '../store'
+import { history } from '../../shared/store'
 
 function* sendAddRestaurantRequest(action) {
   const { payload } = action

@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import StarRatings from 'react-star-ratings'
 
-import { getRestaurantsAction } from '../actions/restaurant'
-import { history } from '../store'
+import { getRestaurantsAction } from  '../../shared/actions/restaurant'
+import { history } from '../../shared/store'
 
 const Welcome = styled.div`
   background: #fff;
@@ -104,7 +104,7 @@ const Home = () => {
         options={options}
       >
         <>
-          {restaurants.map((r) => (
+          {restaurants.length > 1 && restaurants.map((r) => (
             <Marker
               key={r.id}
               onLoad={onLoad}

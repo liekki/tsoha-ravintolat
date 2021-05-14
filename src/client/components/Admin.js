@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Section, SubMenu, SubMenuItem } from './Styles'
 
-import { getRestaurantsAction } from '../actions/restaurant'
+import { getRestaurantsAction } from '../../shared/actions/restaurant'
 
 import AddRestaurant from './AddRestaurant'
 import EditRestaurant from './EditRestaurant'

@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import * as types from '../constants/action-types'
+import * as types from '../../shared/constants/action-types'
 
-import { login, logout, profile } from '../api/user'
-import { history } from '../store'
+import { login, logout, profile } from '../../shared/api/user'
+import { history } from '../../shared/store'
 
 function* sendLoginRequest(action) {
   const { payload } = action

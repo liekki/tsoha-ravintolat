@@ -6,7 +6,7 @@ import reverse from 'lodash/reverse'
 
 import { Section, Table, Row, Th, Td } from './Styles'
 
-import { getRestaurantsAction } from '../actions/restaurant'
+import { getRestaurantsAction } from  '../../shared/actions/restaurant'
 
 const Top = () => {
   const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import { USER_REGISTER, USER_LOGIN, USER_LOGOUT } from '../constants/action-types'
+import { USER_REGISTER, USER_LOGIN, USER_LOGOUT } from '../../shared/constants/action-types'
 
 export function registerAction(payload) {
   return {
