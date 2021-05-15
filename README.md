@@ -17,10 +17,10 @@ SOVELLUKSEN DEMOVERSIO ON NÄHTÄVISSÄ [TÄÄLLÄ](https://tsoha-ravintolat.her
 
 _Demotunnukset:_
 
-|                 | tunnus | salasana |
-| --------------- | ------ | -------- |
-| normaali tunnus | demo   | demo     |
-| pääkäyttäjä     | pomo   | pomo     |
+|                 | tunnus | salasana  |
+| --------------- | ------ | --------- |
+| normaali tunnus | demo   | demopassu |
+| pääkäyttäjä     | pomo   | pomopassu |
 
 Kun käyttäjä saapuu sovellukseen, kotinäkymässä on Kumpulan alueen kartta ja kartalla markereita osoittamassa paikkoja, jossa ravintoloita on. Klikkaamalla ikonia käyttäjä pääsee katsomaan ravintolan tietoja sekä lukemaan ja antamaan arvioita.
 
@@ -32,7 +32,7 @@ Ravintolan tietosivulla on perustietojen lisäksi arviot, joita käyttäjä pä�
 
 ##Juttuja, joita voisi vielä lisätä/parantaa
 
-* Käyttäjä voisi lisätä omia kuvia ravintolasta
-* Check-in feature kuten esim. Foursquaressa/Swarmissa
-	* Tarkistettaisiin GPS-lokaatio + mahdollisesti vaadittaisiin kuvatodiste kaljatuopista. Tarkistus voitaisiin tehdä esim. Googlen Cloud Vision API:lla 😎
-*  Tyylikkäämpi karttapohja
+- Käyttäjä voisi lisätä omia kuvia ravintolasta
+- Check-in feature kuten esim. Foursquaressa/Swarmissa
+  - Tarkistettaisiin GPS-lokaatio + mahdollisesti vaadittaisiin kuvatodiste kaljatuopista. Tarkistus voitaisiin tehdä esim. Googlen Cloud Vision API:lla 😎
+- Tyylikkäämpi karttapohja
