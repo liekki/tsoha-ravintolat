@@ -2,6 +2,8 @@ import React from 'react'
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import { history } from '../../shared/store'
+
 import { Section, SubMenu, SubMenuItem } from './Styles'
 
 import AddRestaurant from './AddRestaurant'
@@ -16,7 +18,10 @@ import DeleteFeature from './DeleteFeature'
 
 const Admin = () => {
   const user = useSelector((state) => state.user?.identity)
-  if (!user.is_admin) return null
+  if (!user?.is_admin) {
+    history.push('/')
+    return null
+  }
   const { path, url } = useRouteMatch()
 
   return (
