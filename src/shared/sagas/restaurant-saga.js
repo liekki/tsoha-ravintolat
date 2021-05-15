@@ -24,7 +24,7 @@ function* sendAddRestaurantRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANT_ADD_ERROR, e })
+    yield put({ type: types.RESTAURANT_ADD_ERROR, message: e.message })
   }
 }
 
@@ -39,7 +39,7 @@ function* sendUpdateRestaurantRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANT_UPDATE_ERROR, e })
+    yield put({ type: types.RESTAURANT_UPDATE_ERROR, message: e.message })
   }
 }
 
@@ -55,7 +55,7 @@ function* sendDeleteRestaurantRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANT_DELETE_ERROR, e })
+    yield put({ type: types.RESTAURANT_DELETE_ERROR, message: e.message })
   }
 }
 
@@ -70,7 +70,7 @@ function* sendAddReviewRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANT_REVIEW_ADD_ERROR, e })
+    yield put({ type: types.RESTAURANT_REVIEW_ADD_ERROR, message: e.message })
   }
 }
 
@@ -86,7 +86,7 @@ function* sendDeleteReviewRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANT_REVIEW_DELETE_ERROR, e })
+    yield put({ type: types.RESTAURANT_REVIEW_DELETE_ERROR, message: e.message })
   }
 }
 
@@ -100,7 +100,7 @@ function* sendGetRestaurantsRequest() {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANTS_GET_ALL_ERROR, e })
+    yield put({ type: types.RESTAURANTS_GET_ALL_ERROR, message: e.message })
   }
 }
 
@@ -115,7 +115,7 @@ function* sendGetRestaurantRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.RESTAURANTS_GET_ERROR, e })
+    yield put({ type: types.RESTAURANTS_GET_ERROR, message: e.message })
   }
 }
 

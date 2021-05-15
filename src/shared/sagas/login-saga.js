@@ -20,7 +20,7 @@ function* sendLoginRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.USER_LOGIN_ERROR, e })
+    yield put({ type: types.USER_LOGIN_ERROR, message: e.message })
   }
 }
 
@@ -34,7 +34,7 @@ function* sendProfileRequest() {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.USER_LOGIN_PROFILE_ERROR })
+    yield put({ type: types.USER_LOGIN_PROFILE_ERROR, message: e.message })
   }
 }
 
@@ -47,7 +47,7 @@ function* sendLogoutRequest() {
       yield put({ type: types.USER_LOGOUT_ERROR, message: response.error })
     }
   } catch (e) {
-    yield put({ type: types.USER_LOGOUT_ERROR, e })
+    yield put({ type: types.USER_LOGOUT_ERROR, message: e.message })
   }
 }
 

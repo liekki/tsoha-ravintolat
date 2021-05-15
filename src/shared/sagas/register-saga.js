@@ -17,7 +17,7 @@ function* sendRegisterRequest(action) {
     }
   } catch (e) {
     console.log(e)
-    yield put({ type: types.USER_REGISTER_ERROR, e })
+    yield put({ type: types.USER_REGISTER_ERROR, message: e.message })
   }
 }
 
