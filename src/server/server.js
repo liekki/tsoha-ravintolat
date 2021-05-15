@@ -72,7 +72,14 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.post('/api/logout', (req, res) => {
-  res.clearCookie('session', { httpOnly: true, signed: true })
+  try {
+    const session = JSON.parse(req.signedCookies.session)
+    res.cookie('session', JSON.stringify({ ...session, userId: null }), {
+      httpOnly: true,
+      signed: true,
+      sameSite: true,
+    })
+  } catch (e) {}
   res.status(200).json({ message: 'Uloskirjautuminen onnistui' })
 })
 
