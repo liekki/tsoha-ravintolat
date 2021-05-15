@@ -19,6 +19,9 @@ const FormFeature = ({ onSubmit, values }) => {
     reValidateMode: 'onBlur',
     mode: 'onBlur',
     resolver: yupResolver(schema.feature),
+    context: {
+      currentName: values.name,
+    },
   })
 
   const onErrors = (errors) => console.error(errors)

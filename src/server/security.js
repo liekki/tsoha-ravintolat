@@ -41,7 +41,7 @@ export function checkCsrfToken(req, res, next) {
   if (req.signedCookies.session) {
     const session = JSON.parse(req.signedCookies.session)
     if (session.csrf_token !== req.body.payload.csrf_token) {
-      res.status(403).json({ message: '403' })
+      res.status(403).json({ message: 'CSRF tokens did not match' })
     } else {
       next()
     }

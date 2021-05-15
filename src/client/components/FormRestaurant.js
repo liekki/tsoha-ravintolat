@@ -32,6 +32,9 @@ const FormRestaurant = ({ onSubmit, values }) => {
     reset,
   } = useForm({
     resolver: yupResolver(schema.restaurant),
+    context: {
+      currentName: values.name,
+    },
   })
 
   const onErrors = (errors) => console.error(errors)

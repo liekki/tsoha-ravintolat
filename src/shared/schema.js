@@ -24,9 +24,14 @@ const restaurant = yup.object().shape({
     .string()
     .min(4)
     .required()
-    .test('nameUnique', 'Ravintola tällä nimellä on jo olemassa!', async (value) =>
-      checkRestaurantNameUnique(value)
-    ),
+    .when('$currentName', (currentName, schema) => {
+      return schema.test(
+        'restaurantUnique',
+        'Ravintola tällä nimellä on jo olemassa!',
+        async (value) => value == currentName || checkRestaurantNameUnique(value)
+      )
+    }),
+
   description: yup.string(),
   rights: yup.string().oneOf(['A', 'B', 'C', '', null]),
   features: yup.array().of(yup.bool().nullable()),
@@ -51,9 +56,13 @@ const feature = yup.object().shape({
     .min(2)
     .max(20)
     .required()
-    .test('featureUnique', 'Ominaisuus tällä nimellä on jo olemassa!', async (value) =>
-      checkFeatureUnique(value)
-    ),
+    .when('$currentName', (currentName, schema) => {
+      return schema.test(
+        'featureUnique',
+        'Ominaisuus tällä nimellä on jo olemassa!',
+        async (value) => value == currentName || checkFeatureUnique(value)
+      )
+    }),
 })
 
 const checkRestaurantNameUnique = isServer
