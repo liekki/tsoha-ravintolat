@@ -2,6 +2,7 @@ import express from 'express'
 import compression from 'compression'
 import path from 'path'
 import cookieParser from 'cookie-parser'
+import favicon from 'serve-favicon'
 
 import serveApp from './serveApp'
 import {
@@ -26,6 +27,8 @@ const app = express()
 
 app.use(compression({ threshold: 0 }))
 app.use(cookieParser(COOKIE_SECRET))
+
+app.use(favicon(APP_PATH + '/img/favicon.ico'))
 
 app.use(
   '/static',
