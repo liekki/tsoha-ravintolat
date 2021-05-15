@@ -2,26 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
-import find from 'lodash/find'
 
-import { deleteRestaurantAction } from '../../shared/actions/restaurant'
-import { getRestaurantById } from '../../shared/api/restaurant'
+import { deleteFeatureAction } from '../../shared/actions/feature'
 
-import { Form, FormField, FormFieldInput, FormFieldLabel, Submit } from './Styles'
+import { Form, Submit } from './Styles'
 
-const DeleteRestaurant = () => {
+const DeleteFeature = () => {
   const dispatch = useDispatch()
   const csrfToken = useSelector((state) => state.user.csrfToken)
-  const { restaurantId } = useParams()
+  const { featureId } = useParams()
 
   const { register, handleSubmit, setValue } = useForm()
 
   setValue('csrf_token', csrfToken, { shouldValidate: false })
-  setValue('id', restaurantId, { shouldValidate: false })
+  setValue('id', featureId, { shouldValidate: false })
 
   const onErrors = (errors) => console.error(errors)
   const handleForm = (data) => {
-    dispatch(deleteRestaurantAction(data))
+    dispatch(deleteFeatureAction(featureId, data))
   }
 
   return (
@@ -32,4 +30,4 @@ const DeleteRestaurant = () => {
     </Form>
   )
 }
-export default DeleteRestaurant
+export default DeleteFeature

@@ -20,4 +20,8 @@ const review = yup.object().shape({
   rating: yup.string().oneOf(['1', '2', '3', '4', '5']).required(),
 })
 
-export { restaurant, review }
+const feature = yup.object().shape({
+  name: yup.string().min(2).max(20).required(),
+})
+
+export { restaurant, review, feature }

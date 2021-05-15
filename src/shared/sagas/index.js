@@ -11,6 +11,12 @@ import {
   watchReviewRestaurant,
   watchDeleteReviewRestaurant,
 } from './restaurant-saga'
+import {
+  watchGetFeatures,
+  watchAddFeature,
+  watchUpdateFeature,
+  watchDeleteFeature,
+} from './feature-saga'
 
 export default function* startForeman() {
   yield all([
@@ -25,5 +31,9 @@ export default function* startForeman() {
     fork(watchGetRestaurant),
     fork(watchReviewRestaurant),
     fork(watchDeleteReviewRestaurant),
+    fork(watchGetFeatures),
+    fork(watchAddFeature),
+    fork(watchUpdateFeature),
+    fork(watchDeleteFeature),
   ])
 }

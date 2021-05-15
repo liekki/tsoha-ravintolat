@@ -14,6 +14,8 @@ import { checkAccess, addUserToRequest } from './api'
 
 import * as users from './db/users'
 import * as restaurants from './db/restaurants'
+import * as features from './db/features'
+
 import * as schema from '../shared/schema'
 
 const PORT = process.env.PORT || 1234
@@ -129,6 +131,66 @@ app.delete(
     } catch (err) {
       console.error(err)
       res.status(500).json({ error: 'Ravintolan poistaminen epäonnistui' })
+    }
+  }
+)
+
+app.post(
+  '/api/feature/add',
+  checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
+  async (req, res) => {
+    const { payload } = req.body
+
+    const isValid = await schema.feature.validate(payload)
+    if (isValid) {
+      try {
+        const feature = await features.addFeature(payload)
+        res.status(200).json({ message: 'Ominaisuuden lisääminen onnistui' })
+      } catch (err) {
+        res.status(500).json({ error: 'Ominaisuuden lisääminen epäonnistui' })
+      }
+    } else {
+      res.status(400).json({ error: 'Invalid restaurant' })
+    }
+  }
+)
+
+app.put(
+  '/api/feature/update/:id',
+  checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
+  async (req, res) => {
+    const { payload } = req.body
+    const id = req.params.id
+    const isValid = await schema.feature.validate(payload)
+    if (isValid) {
+      try {
+        const feature = await features.updateFeature(id, payload)
+        res.status(200).json({ message: 'Ominaisuuden päivittäminen onnistui' })
+      } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Ominaisuuden päivittäminen epäonnistui' })
+      }
+    } else {
+      res.status(400).json({ error: 'Invalid feature' })
+    }
+  }
+)
+
+app.delete(
+  '/api/feature/delete/:id',
+  checkAccess((req) => req.user?.is_admin),
+  checkCsrfToken,
+  async (req, res) => {
+    const { payload } = req.body
+    const id = req.params.id
+    try {
+      const feature = await features.deleteFeature(id)
+      res.status(200).json({ message: 'Ominaisuuden poistaminen onnistui' })
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ error: 'Ominaisuuden poistaminen epäonnistui' })
     }
   }
 )

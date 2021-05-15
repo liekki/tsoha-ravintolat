@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useSelector } from 'react-redux'
 
-import * as restaurant from '../../shared/api/restaurant'
 import * as schema from '../../shared/schema'
 
 import {
@@ -23,19 +22,8 @@ import {
 } from './Styles'
 
 const FormRestaurant = ({ onSubmit, values }) => {
-  const [features, setFeatures] = useState([])
   const csrfToken = useSelector((state) => state.user.csrfToken)
-
-  useEffect(async () => {
-    const features = await restaurant.features()
-    setFeatures(features?.features)
-
-    setValue('csrf_token', csrfToken, { shouldValidate: false })
-    if (values) {
-      reset(values)
-    }
-  }, [])
-
+  const features = useSelector((state) => state.feature.list)
   const {
     register,
     handleSubmit,
@@ -50,6 +38,13 @@ const FormRestaurant = ({ onSubmit, values }) => {
   const handleForm = (data) => {
     onSubmit(data, reset)
   }
+
+  useEffect(() => {
+    setValue('csrf_token', csrfToken, { shouldValidate: false })
+    if (values) {
+      reset(values)
+    }
+  }, [])
 
   return (
     <Form method="post" action="" onSubmit={handleSubmit(handleForm, onErrors)}>
@@ -78,16 +73,17 @@ const FormRestaurant = ({ onSubmit, values }) => {
       <FormField>
         <FormFieldLabel htmlFor="features">Ominaisuudet</FormFieldLabel>
         <FormFieldCheckboxCollection>
-          {features.map((f) => (
-            <FormFieldCheckboxContainer key={f.id}>
-              <FormFieldLabel htmlFor={'feature-' + f.id}>{f.name}</FormFieldLabel>
-              <FormFieldCheckbox
-                type="checkbox"
-                id={'feature-' + f.id}
-                {...register('features[' + f.id + ']')}
-              />
-            </FormFieldCheckboxContainer>
-          ))}
+          {features.length > 0 &&
+            features.map((f) => (
+              <FormFieldCheckboxContainer key={f.id}>
+                <FormFieldLabel htmlFor={'feature-' + f.id}>{f.name}</FormFieldLabel>
+                <FormFieldCheckbox
+                  type="checkbox"
+                  id={'feature-' + f.id}
+                  {...register('features[' + f.id + ']')}
+                />
+              </FormFieldCheckboxContainer>
+            ))}
         </FormFieldCheckboxCollection>
       </FormField>
       <FormField>

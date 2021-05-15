@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { deleteReviewAction } from  '../../shared/actions/restaurant'
+import { deleteReviewAction } from '../../shared/actions/restaurant'
 
 import { Form, Submit } from './Styles'
 
 const DeleteReview = () => {
   const dispatch = useDispatch()
   const csrfToken = useSelector((state) => state.user.csrfToken)
-  let { reviewId } = useParams()
+  const { reviewId } = useParams()
 
   const { register, handleSubmit, setValue } = useForm()
 

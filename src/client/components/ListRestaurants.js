@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { Table, Row, Td, Th } from './Styles'
 
-const ListRestaurants = ({ restaurants }) => {
+import { getRestaurantsAction } from '../../shared/actions/restaurant'
+
+const ListRestaurants = () => {
+  const restaurants = useSelector((state) => state.restaurant.list)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getRestaurantsAction())
+  }, [])
+
   return (
     <Table>
       <thead>

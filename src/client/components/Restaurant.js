@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import StarRatings from 'react-star-ratings'
 
 import { getRestaurantById, features as getFeatures } from '../../shared/api/restaurant'
-import { getRestaurantAction, addReviewAction } from  '../../shared/actions/restaurant'
+import { getRestaurantAction, addReviewAction } from '../../shared/actions/restaurant'
 import FormReview from './FormReview'
 
 import { Section } from './Styles'
@@ -12,16 +12,13 @@ import { Section } from './Styles'
 import { history } from '../../shared/store'
 
 const Restaurant = () => {
-  let { restaurantId } = useParams()
-  const restaurant = useSelector((state) => state.restaurant.view)
-  const [features, setFeatures] = useState()
+  const { restaurantId } = useParams()
   const dispatch = useDispatch()
-
+  const restaurant = useSelector((state) => state.restaurant.view)
+  const features = useSelector((state) => state.feature.list)
   const user = useSelector((state) => state.user.identity)
 
-  useEffect(async () => {
-    const features = await getFeatures()
-    setFeatures(features?.features)
+  useEffect(() => {
     dispatch(getRestaurantAction(restaurantId))
   }, [])
 
@@ -32,7 +29,7 @@ const Restaurant = () => {
     dispatch(addReviewAction(restaurantId, data))
   }
 
-  return restaurant && features ? (
+  return restaurant ? (
     <>
       <Section>
         <div>

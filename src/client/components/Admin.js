@@ -1,28 +1,23 @@
-import React, { useEffect } from 'react'
-import { NavLink, Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import { Section, SubMenu, SubMenuItem } from './Styles'
-
-import { getRestaurantsAction } from '../../shared/actions/restaurant'
 
 import AddRestaurant from './AddRestaurant'
 import EditRestaurant from './EditRestaurant'
 import ListRestaurants from './ListRestaurants'
 import DeleteRestaurant from './DeleteRestaurant'
 import DeleteReview from './DeleteReview'
+import ListFeatures from './ListFeatures'
+import AddFeature from './AddFeature'
+import EditFeature from './EditFeature'
+import DeleteFeature from './DeleteFeature'
 
-const Profile = () => {
+const Admin = () => {
   const user = useSelector((state) => state.user?.identity)
   if (!user.is_admin) return null
-
-  const restaurants = useSelector((state) => state.restaurant.list)
   const { path, url } = useRouteMatch()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getRestaurantsAction())
-  }, [])
 
   return (
     <>
@@ -40,10 +35,16 @@ const Profile = () => {
             <SubMenuItem>
               <Link to={`${url}/new`}>Lisää uusi ravintola</Link>
             </SubMenuItem>
+            <SubMenuItem>
+              <Link to={`${url}/feature`}>Listaa ominaisuudet</Link>
+            </SubMenuItem>
+            <SubMenuItem>
+              <Link to={`${url}/feature/new`}>Lisää uusi ominaisuus</Link>
+            </SubMenuItem>
           </SubMenu>
           <Switch>
             <Route exact path={path}>
-              <ListRestaurants restaurants={restaurants} />
+              <ListRestaurants />
             </Route>
             <Route path={`${path}/edit/:restaurantId`}>
               <h2>Muokkaa ravintolaa</h2>
@@ -61,6 +62,21 @@ const Profile = () => {
               <h2>Poista kommentti</h2>
               <DeleteReview />
             </Route>
+            <Route path={`${path}/feature`} exact>
+              <ListFeatures />
+            </Route>
+            <Route path={`${path}/feature/new`} exact>
+              <h2>Lisää ominaisuus</h2>
+              <AddFeature />
+            </Route>
+            <Route path={`${path}/feature/edit/:featureId`}>
+              <h2>Muokkaa ominaisuutta</h2>
+              <EditFeature />
+            </Route>
+            <Route path={`${path}/feature/delete/:featureId`}>
+              <h2>Poista ominaisuus</h2>
+              <DeleteFeature />
+            </Route>
           </Switch>
         </div>
       </Section>
@@ -68,4 +84,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default Admin

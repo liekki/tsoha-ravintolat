@@ -6,10 +6,11 @@ import { StaticRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ServerStyleSheet } from 'styled-components'
 
+import { getFeatures } from './db/restaurants'
 import configureStore from '../shared/store'
 import App from '../client/components/App'
 
-export default (req, res) => {
+export default async (req, res) => {
   const documentMarkup = fs.readFileSync(path.resolve(__dirname, '../../dist/client/index.html'), {
     encoding: 'utf8',
   })
@@ -17,6 +18,9 @@ export default (req, res) => {
     user: {
       identity: req.user ? { ...req.user, password: null } : null,
       csrfToken: req.csrf_token,
+    },
+    feature: {
+      list: await getFeatures(),
     },
   }
   const store = configureStore(partialState, req.url)

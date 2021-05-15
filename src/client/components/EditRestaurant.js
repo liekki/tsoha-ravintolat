@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import find from 'lodash/find'
 
-import { updateRestaurantAction } from  '../../shared/actions/restaurant'
+import { updateRestaurantAction } from '../../shared/actions/restaurant'
 import FormRestaurant from './FormRestaurant'
 import { getRestaurantById } from '../../shared/api/restaurant'
 
 const EditRestaurant = () => {
   const dispatch = useDispatch()
-  let { restaurantId } = useParams()
+  const { restaurantId } = useParams()
 
   const [restaurant, setRestaurant] = useState()
 
@@ -18,14 +18,12 @@ const EditRestaurant = () => {
     setRestaurant(response.data)
   }, [])
 
-  if (!restaurant) return null
-
   const onSubmit = (data, reset) => {
     window.scrollTo(0, 0)
     dispatch(updateRestaurantAction(restaurantId, data))
   }
 
-  return <FormRestaurant values={restaurant} onSubmit={onSubmit} />
+  return restaurant ? <FormRestaurant values={restaurant} onSubmit={onSubmit} /> : null
 }
 
 export default EditRestaurant
