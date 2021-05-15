@@ -1,11 +1,6 @@
 import { query, transaction } from './driver/pg'
 import zipObject from 'lodash/zipObject'
 
-export async function getFeatures() {
-  const result = await query(`SELECT * FROM features`)
-  return result.rows
-}
-
 export async function addRestaurant({ name, description, rights, latitude, longitude, features }) {
   return transaction(async (query) => {
     const result = await query(

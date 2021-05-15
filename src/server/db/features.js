@@ -1,5 +1,10 @@
 import { query } from './driver/pg'
 
+export async function getFeatures() {
+  const result = await query(`SELECT * FROM features`)
+  return result.rows
+}
+
 export async function addFeature({ name }) {
   const result = await query(`INSERT INTO features (name) VALUES ($1) RETURNING *`, [name])
   return result.rows[0]

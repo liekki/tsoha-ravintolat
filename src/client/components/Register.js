@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form'
 import { NavLink as Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+
+import * as schema from '../../shared/schema'
 
 import {
   Section,
@@ -17,17 +18,6 @@ import {
 
 import { registerAction } from '../../shared/actions/user'
 
-const schema = yup.object().shape({
-  username: yup
-    .string()
-    .required()
-    .min(3)
-    .max(8)
-    .matches(/^[a-z0-9_]+$/),
-  password: yup.string().required().min(6),
-  password2: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
-})
-
 const Register = () => {
   const dispatch = useDispatch()
   const csrfToken = useSelector((state) => state.user.csrfToken)
@@ -38,7 +28,7 @@ const Register = () => {
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema.user),
   })
 
   setValue('csrf_token', csrfToken, { shouldValidate: false })

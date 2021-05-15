@@ -97,6 +97,17 @@ app.post(
   }
 )
 
+app.get(
+  '/api/restaurant/exists/:name',
+  checkAccess((req) => req.user?.is_admin),
+  async (req, res) => {
+    const { name } = req.params
+    const result = await restaurants.getRestaurants()
+    const exists = result.filter((r) => r.name === name).length > 0
+    res.status(200).json({ exists })
+  }
+)
+
 app.put(
   '/api/restaurant/update/:id',
   checkAccess((req) => req.user?.is_admin),
@@ -132,6 +143,20 @@ app.delete(
       console.error(err)
       res.status(500).json({ error: 'Ravintolan poistaminen epäonnistui' })
     }
+  }
+)
+
+app.get(
+  '/api/feature/exists/:name',
+  checkAccess((req) => req.user?.is_admin),
+  async (req, res) => {
+    const { name } = req.params
+
+    const result = await features.getFeatures()
+
+    const exists = result.filter((f) => f.name === name).length > 0
+
+    res.status(200).json({ exists })
   }
 )
 
@@ -258,9 +283,9 @@ app.get(
 )
 
 app.get('/api/features', async (req, res) => {
-  const features = await restaurants.getFeatures()
+  const result = await features.getFeatures()
   res.status(200).json({
-    features,
+    features: result,
   })
 })
 
@@ -283,6 +308,12 @@ app.post('/api/register', checkCsrfToken, async (req, res) => {
       console.log('error', err)
     }
   }
+})
+
+app.get('/api/username/exists/:name', async (req, res) => {
+  const { name } = req.params
+  const result = await users.getUserByUsername(name)
+  res.status(200).json({ exists: !!result })
 })
 
 app.use('*', serveApp)

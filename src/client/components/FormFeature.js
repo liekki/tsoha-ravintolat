@@ -16,6 +16,8 @@ const FormFeature = ({ onSubmit, values }) => {
     setValue,
     reset,
   } = useForm({
+    reValidateMode: 'onBlur',
+    mode: 'onBlur',
     resolver: yupResolver(schema.feature),
   })
 

@@ -7,11 +7,7 @@ import createSagaMiddleware from 'redux-saga'
 
 import sagas from './sagas'
 
-export const isServer = !(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-)
+import { isServer } from './helper'
 
 export const history = isServer ? createMemoryHistory() : createBrowserHistory()
 

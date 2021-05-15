@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ServerStyleSheet } from 'styled-components'
 
-import { getFeatures } from './db/restaurants'
+import { getFeatures } from './db/features'
 import configureStore from '../shared/store'
 import App from '../client/components/App'
 
