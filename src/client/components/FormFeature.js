@@ -20,7 +20,7 @@ const FormFeature = ({ onSubmit, values }) => {
     mode: 'onBlur',
     resolver: yupResolver(schema.feature),
     context: {
-      currentName: values.name,
+      currentName: values?.name,
     },
   })
 

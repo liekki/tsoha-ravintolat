@@ -33,7 +33,7 @@ const FormRestaurant = ({ onSubmit, values }) => {
   } = useForm({
     resolver: yupResolver(schema.restaurant),
     context: {
-      currentName: values.name,
+      currentName: values?.name,
     },
   })
 

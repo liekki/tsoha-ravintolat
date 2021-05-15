@@ -30,7 +30,7 @@ Hallintapaneelissa pääkäyttäjä pääsee lisäämään,muokkaamaan ja poista
 
 Ravintolan tietosivulla on perustietojen lisäksi arviot, joita käyttäjä pääsee lisäämään kirjauduttuaan. Pääkäyttäjä voi poistaa arvioita.
 
-##Juttuja, joita voisi vielä lisätä/parantaa
+## Juttuja, joita voisi vielä lisätä/parantaa
 
 - Käyttäjä voisi lisätä omia kuvia ravintolasta
 - Check-in feature kuten esim. Foursquaressa/Swarmissa
