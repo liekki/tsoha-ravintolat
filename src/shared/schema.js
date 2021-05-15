@@ -12,8 +12,10 @@ const user = yup.object().shape({
     .min(3)
     .max(8)
     .matches(/^[a-z0-9_]+$/)
-    .test('usernameUnique', 'Käyttäjä tällä nimellä on jo olemassa!', async (value) =>
-      checkUsernameUnique(value)
+    .test(
+      'usernameUnique',
+      'Käyttäjä tällä nimellä on jo olemassa!',
+      async (value) => value.length < 2 || checkUsernameUnique(value)
     ),
   password: yup.string().required().min(6),
   password2: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
@@ -28,7 +30,8 @@ const restaurant = yup.object().shape({
       return schema.test(
         'restaurantUnique',
         'Ravintola tällä nimellä on jo olemassa!',
-        async (value) => value == currentName || checkRestaurantNameUnique(value)
+        async (value) =>
+          value.length < 4 || value == currentName || checkRestaurantNameUnique(value)
       )
     }),
 
@@ -60,7 +63,7 @@ const feature = yup.object().shape({
       return schema.test(
         'featureUnique',
         'Ominaisuus tällä nimellä on jo olemassa!',
-        async (value) => value == currentName || checkFeatureUnique(value)
+        async (value) => value.length < 2 || value == currentName || checkFeatureUnique(value)
       )
     }),
 })

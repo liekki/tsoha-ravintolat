@@ -22,8 +22,8 @@ const ListFeatures = () => {
               <Row key={f.id}>
                 <Td>{f.name}</Td>
                 <Td>
-                  <ControlButton to={`/admin/feature/edit/${f.id}`}>edit</ControlButton> /{' '}
-                  <ControlButton to={`/admin/feature/delete/${f.id}`}>delete</ControlButton>
+                  <ControlButton to={`/admin/feature/edit/${f.id}`}>Muokkaa</ControlButton>
+                  <ControlButton to={`/admin/feature/delete/${f.id}`}>Poista</ControlButton>
                 </Td>
               </Row>
             )
