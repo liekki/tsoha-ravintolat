@@ -443,6 +443,21 @@ const Td = styled.td`
   padding: 20px;
 `
 
+const ControlButton = styled(NavLink)`
+  display: inline-block;
+  background: #007ac9;
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin: 0px 5px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:visited {
+    color: #fff;
+  }
+`
+
 export {
   GlobalStyles,
   Section,
@@ -479,4 +494,5 @@ export {
   Row,
   Th,
   Td,
+  ControlButton,
 }

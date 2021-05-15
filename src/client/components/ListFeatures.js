@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import { Table, Row, Td, Th } from './Styles'
+import { Table, Row, Td, Th, ControlButton } from './Styles'
 
 const ListFeatures = () => {
   const features = useSelector((state) => state.feature.list)
@@ -22,8 +22,8 @@ const ListFeatures = () => {
               <Row key={f.id}>
                 <Td>{f.name}</Td>
                 <Td>
-                  <Link to={`/admin/feature/edit/${f.id}`}>edit</Link> /{' '}
-                  <Link to={`/admin/feature/delete/${f.id}`}>delete</Link>
+                  <ControlButton to={`/admin/feature/edit/${f.id}`}>edit</ControlButton> /{' '}
+                  <ControlButton to={`/admin/feature/delete/${f.id}`}>delete</ControlButton>
                 </Td>
               </Row>
             )

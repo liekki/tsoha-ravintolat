@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-
-import { Table, Row, Td, Th } from './Styles'
+import { Table, Row, Td, Th, ControlButton } from './Styles'
 
 import { getRestaurantsAction } from '../../shared/actions/restaurant'
 
@@ -33,8 +32,8 @@ const ListRestaurants = () => {
                   ({r.latitude},{r.longitude})
                 </Td>
                 <Td>
-                  <Link to={`/admin/edit/${r.id}`}>edit</Link> /{' '}
-                  <Link to={`/admin/delete/${r.id}`}>delete</Link>
+                  <ControlButton to={`/admin/edit/${r.id}`}>Muokkaa</ControlButton>
+                  <ControlButton to={`/admin/delete/${r.id}`}>Poista</ControlButton>
                 </Td>
               </Row>
             )
