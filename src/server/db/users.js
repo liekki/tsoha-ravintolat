@@ -11,11 +11,13 @@ export async function addUser({ username, password }) {
 }
 
 export async function getUserByUsername(username) {
-  const result = await query(`SELECT * FROM users WHERE username = $1`, [username])
+  const result = await query(`SELECT * FROM users WHERE username = $1 AND deleted_at IS NULL`, [
+    username,
+  ])
   return result.rows[0]
 }
 
 export async function getUserById(id) {
-  const result = await query(`SELECT * FROM users WHERE id = $1`, [id])
+  const result = await query(`SELECT * FROM users WHERE id = $1 AND deleted_at IS NULL`, [id])
   return result.rows[0]
 }

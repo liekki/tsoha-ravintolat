@@ -67,7 +67,7 @@ export async function getRestaurants() {
 
 export async function getRestaurantById(id) {
   const restaurant = await query(
-    `SELECT r.*, ROUND(AVG(r2.rating), 2) AS average_rating FROM restaurants r LEFT JOIN reviews r2 ON r2.restaurant_id = r.id WHERE r.id = $1 AND r.deleted_at IS NULL GROUP BY r.id;`,
+    `SELECT r.*, ROUND(AVG(r2.rating), 2) AS average_rating FROM restaurants r LEFT JOIN reviews r2 ON r2.restaurant_id = r.id WHERE r.id = $1 AND r.deleted_at IS NULL AND r2.deleted_at IS NULL GROUP BY r.id;`,
     [id]
   )
 
@@ -77,7 +77,7 @@ export async function getRestaurantById(id) {
   )
 
   const reviews = await query(
-    `SELECT r.*, u.username FROM reviews r INNER JOIN users u ON r.user_id = u.id WHERE r.restaurant_id = $1 ORDER BY r.created_at DESC`,
+    `SELECT r.*, u.username FROM reviews r INNER JOIN users u ON r.user_id = u.id WHERE r.restaurant_id = $1 AND r.deleted_at IS NULL ORDER BY r.created_at DESC`,
     [id]
   )
 
@@ -101,6 +101,9 @@ export async function addReview(id, userId, { comment, rating }) {
 }
 
 export async function deleteReview(id) {
-  const result = await query(`DELETE FROM reviews WHERE id = $1 RETURNING *`, [id])
+  const result = await query(`UPDATE reviews SET deleted_at = $1 WHERE id = $2 RETURNING *`, [
+    'now()',
+    id,
+  ])
   return result.rows[0]
 }
