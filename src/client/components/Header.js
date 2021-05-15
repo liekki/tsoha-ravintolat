@@ -25,7 +25,7 @@ const Header = () => {
     <HeaderWrapper mobileMenuVisible={mobileMenuVisible}>
       <Nav>
         <NavSection>
-          <Logo to="/" onClick={() => setMobileMenuVisible(false)} />
+          <Logo to="/" onClick={() => setMobileMenuVisible(false)} aria-label="Etusivu" />
           <NavList>
             <NavListItem>
               <Link
